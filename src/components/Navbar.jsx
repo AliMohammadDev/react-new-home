@@ -251,53 +251,106 @@ const Navbar = () => {
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
             }}
           >
-            <div className="text-center text-white text-sm w-full px-4 py-10">
+            <div className="text-center text-white text-sm w-full px-4 pt-10 pb-4">
               <div className="inline-block text-left w-full max-w-xs">
-                <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-2">
+
+                {/* Header */}
+                <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
                   <span>Product</span>
                   <span>Price</span>
                   <span>QTY</span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6 mb-1 items-center">
+                {/* PRODUCT 1 */}
+                <div className="grid grid-cols-3 gap-4 mb-3 items-center">
+                  {/* Image */}
                   <img
                     src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
                     alt="product"
-                    className="object-cover rounded"
+                    className="object-cover rounded w-16 h-16"
                   />
-                  <span>$500.00 sp</span>
-                  <div className="relative flex items-center border rounded-4xl bg-white py-1">
-                    <a
-                      href="#"
-                      className="absolute font-[Expo-book]  -top-7 underline left-2 text-xs text-white px-2 shadow-sm"
-                    >
-                      Remove
-                    </a>
 
-                    <button className="p-1 ml-1 rounded-2xl bg-[#025043] text-white cursor-pointer">
+                  {/* Price */}
+                  <span className="font-medium">$5000.00 sp</span>
+
+                  {/* Quantity Box */}
+                  <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
+
+                    {/* Remove */}
+                    <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
+                      Remove
+                    </button>
+
+                    {/* + */}
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
                       <PlusIcon />
                     </button>
 
-                    <span className="px-4 text-[#025034] text-center">{0}</span>
+                    {/* number */}
+                    <span className="px-4">{1}</span>
 
-                    <button className="p-1 -ml-1 rounded-2xl bg-[#025043] text-white cursor-pointer">
+                    {/* - */}
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
                       <MinusIcon />
                     </button>
                   </div>
                 </div>
 
-                <div className="border-b border-white/30 my-2"></div>
+                {/* PRODUCT 2 */}
+                <div className="grid grid-cols-3 gap-4 mb-3 items-center">
+                  {/* Image */}
+                  <img
+                    src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
+                    alt="product2"
+                    className="object-cover rounded w-16 h-16"
+                  />
 
-                <div className="flex flex-col items-center mb-10">
-                  <span className="font-semibold">TOTAL</span>
-                  <span className="font-bold">$500.00 sp</span>
+                  {/* Price */}
+                  <span className="font-medium">$7000.00 sp</span>
+
+                  {/* Quantity Box */}
+                  <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
+
+                    {/* Remove */}
+                    <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
+                      Remove
+                    </button>
+
+                    {/* + */}
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
+                      <PlusIcon />
+                    </button>
+
+                    {/* number */}
+                    <span className="px-4">{2}</span>
+
+                    {/* - */}
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
+                      <MinusIcon />
+                    </button>
+                  </div>
                 </div>
 
-                <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
-                  CHECKOUT NOW
-                </button>
+                {/* Divider */}
+                <div className="border-b border-white/30 my-4"></div>
+
+                {/* Total */}
+                <div className="flex flex-col items-center">
+                  <span className="font-semibold">TOTAL</span>
+                  <span className="font-bold text-lg">$8000.00 sp</span>
+                </div>
+
+                {/* Checkout Button */}
+                <Link to={"checkouts"}>
+                  <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
+                    CHECKOUT NOW
+                  </button>
+                </Link>
+
               </div>
             </div>
+
+
           </div>
         )}
 

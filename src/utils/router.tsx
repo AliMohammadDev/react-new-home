@@ -7,6 +7,7 @@ import Register from '../pages/Auth/Register';
 import Product from '../pages/Products';
 import ProductInfo from '../pages/Products/ProductInfo';
 import AboutUs from '../pages/AboutUs';
+import Checkouts from '../pages/Checkouts';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'about', element: <AboutUs /> },
       { path: 'contact', element: <Contact /> },
+      {
+        path: 'checkouts',
+        element: <Checkouts />,
+      },
       {
         path: 'products/:categoryId',
         children: [
