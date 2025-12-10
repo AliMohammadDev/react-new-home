@@ -1,5 +1,3 @@
-import HomeLogo2 from '../../assets/images/Home-Log2.svg';
-import HomeLogo from '../../assets/images/home-logo-black.svg';
 import { Link } from 'react-router-dom';
 import LeftIcon from '../../assets/icons/LeftIcon';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon';
@@ -100,7 +98,7 @@ const AboutUs = () => {
       <div className="w-full md:w-1/2 mt-10 md:mt-0 md:pl-10 flex flex-col items-center md:items-start">
         <div className="w-[80%] sm:w-[70%] md:w-[90%] mx-auto">
           <img
-            src={HomeLogo}
+            src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-black_dicco2.svg"
             alt="Home Logo 1"
             className="w-full h-auto object-contain"
           />
@@ -108,7 +106,7 @@ const AboutUs = () => {
         <div className="w-full h-0.5 my-8 bg-black"></div>
         <div className="w-[80%] sm:w-[70%] md:w-[90%] mx-auto">
           <img
-            src={HomeLogo2}
+            src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765367108/Home-Log2_s17e8a.svg"
             alt="Home Logo 2"
             className="w-full h-auto object-contain"
           />

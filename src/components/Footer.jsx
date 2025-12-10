@@ -1,7 +1,5 @@
 import website from '../assets/images/website.svg';
-// import circle from '../assets/images/circle.svg';
 import { useLocation } from 'react-router-dom';
-import HomeLogo from '../assets/images/home-logo-white.svg';
 
 const Footer = () => {
   const location = useLocation();
@@ -31,7 +29,7 @@ const Footer = () => {
 
           <div className="flex items-center justify-center md:justify-between w-full md:w-auto flex-row-reverse md:flex-row">
             <img
-              src={HomeLogo}
+              src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg"
               alt="circle"
               className="w-[35px] h-[34px] md:w-[38px] md:h-[38px]"
             />

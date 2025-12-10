@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import ChevronUpIcon from '../assets/icons/ChevronUpIcon';
 import ChevronDoubleUp from '../assets/icons/ChevronDoubleUp';
 
 const Layout = () => {

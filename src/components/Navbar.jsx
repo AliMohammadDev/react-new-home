@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import HomeLogo from '../assets/images/home-logo-white.svg';
+// import HomeLogo from '../assets/images/home-logo-white.svg';
 import ChevronDownIcon from '../assets/icons/ChevronDownIcon.jsx';
 import ChevronRightIcon from '../assets/icons/ChevronRightIcon.jsx';
 import CartIcon from '../assets/icons/CartIcon.jsx';
@@ -33,7 +33,7 @@ const Navbar = () => {
     <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 lg:px-8 py-2 lg:py-4 md:py-1 z-50">
       {/* Logo */}
       <Link to={'/'} >
-        <img src={HomeLogo} alt="Logo" className="h-14 w-auto" />
+        <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg" alt="Logo" className="h-14 w-auto" />
       </Link>
 
       {/* Desktop Nav */}

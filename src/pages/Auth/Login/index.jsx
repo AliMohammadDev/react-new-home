@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import HomeLogo from '../../../assets/images/home-logo-white.svg';
 import EmailIcon from '../../../assets/icons/EmailIcon';
 import PasswordIcon from '../../../assets/icons/PasswordIcon';
 import LeftIcon from '../../../assets/icons/LeftIcon';
@@ -18,7 +17,7 @@ function Login() {
         <div className="relative w-full max-w-md px-4">
           <div className="rounded-2xl bg-white/10 backdrop-blur-md p-8 shadow-2xl border border-white/20 text-white">
             <div className="flex mb-6">
-              <img src={HomeLogo} className="w-20 h-15" alt="Home Logo" />
+              <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg" className="w-20 h-15" alt="Home Logo" />
             </div>
 
             <h2 className="text-2xl mb-1">Welcome back!</h2>

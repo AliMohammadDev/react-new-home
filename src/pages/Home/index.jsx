@@ -1,4 +1,3 @@
-import HomeLogo from '../../assets/images/home-logo-white.svg';
 import ProductCard from '../../components/ProductCard ';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -28,7 +27,7 @@ const Home = () => {
         </p>
         <div className="flex justify-center mt-20">
           <img
-            src={HomeLogo}
+            src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg"
             alt="Logo"
             className="w-full max-w-[880px] md:w-[570px] h-auto object-contain"
           />
