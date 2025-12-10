@@ -1,19 +1,12 @@
 import HomeLogo from '../../assets/images/home-logo-white.svg';
-import DrinkWare from '../../assets/images/drinkWare.png';
-import TableWare from '../../assets/images/tableWare.png';
-import CookWare from '../../assets/images/cookWare.png';
 import ProductCard from '../../components/ProductCard ';
-import Bakeware from '../../assets/images/bakeWare.png';
-import ForHome from '../../assets/images/forHome.png';
-import KitchenWare from '../../assets/images/kitchenWare.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProductSlider1 from '../../components/Products/ProductSlider1';
 import ProductSlider2 from '../../components/Products/ProductSlider2';
 import MostProduct from '../../components/Products/MostProduct';
 import AllProductSlider3 from '../../components/Products/AllProductSlider3';
-import Final from '../../assets/images/final.png';
-import Final2 from '../../assets/images/final2.png';
+
 import Header from '../../components/Header';
 
 const Home = () => {
@@ -41,7 +34,7 @@ const Home = () => {
           />
         </div>
 
-        {/* All Products */}
+        {/* All Categories */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20 p-2 sm:p-2 md:p-4">
           {/* products */}
           <div className="text-center text-white transition-shadow duration-300">
@@ -54,13 +47,13 @@ const Home = () => {
           </div>
           <ProductCard
             title="Drinkware"
-            image={DrinkWare}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/drinkWare_bd59t8.png"
             description="Discover the perfect balance of performance, durability, and design with our premium cookware collection. Each piece is crafted to deliver even heat distribution, reliable cooking results, and long-lasting quality. From everyday meals to gourmet creations, our cookware helps you cook with confidence and style. Designed for comfort, efficiency, and versatility, it’s the ideal companion for every modern kitchen."
           />
 
           <ProductCard
             title="TableWare"
-            image={TableWare}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/tableWare_v5v14i.png"
             description="Elevate every dining experience with our beautifully crafted
             tableware collection. Designed for both everyday meals and special
             occasions, each piece combines timeless style with lasting quality.
@@ -71,7 +64,7 @@ const Home = () => {
 
           <ProductCard
             title="CookWare"
-            image={CookWare}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358899/cookWare_jr8zzy.png"
             description="Discover the art of cooking with our premium cookware collection.
             Thoughtfully crafted for durability, performance, and style, each
             piece ensures even heat distribution and precise results every time.
@@ -82,7 +75,7 @@ const Home = () => {
 
           <ProductCard
             title="Bakeware"
-            image={Bakeware}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/bakeWare_kbtsga.png"
             description=" Discover the art of cooking with our premium cookware collection.
             Thoughtfully crafted for durability, performance, and style, each
             piece ensures even heat distribution and precise results every time.
@@ -92,19 +85,19 @@ const Home = () => {
           />
           <ProductCard
             title="Bakeware"
-            image={Bakeware}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/bakeWare_kbtsga.png"
             description=" Durable and versatile bakeware designed for even baking and easy
             release. Perfect for cakes, cookies, muffins, and more."
           />
           <ProductCard
             title="Kitchenware"
-            image={KitchenWare}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/kitchenWare_vy9qnp.png"
             description="Essential kitchenware for cooking, prep, and serving—durable,
             practical, and designed for everyday use."
           />
           <ProductCard
             title="For Home"
-            image={ForHome}
+            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358899/forHome_qzgnuf.png"
             description="  Discover the art of cooking with our premium cookware collection.
             Thoughtfully crafted for durability, performance, and style, each
             piece ensures even heat distribution and precise results every time.
@@ -113,6 +106,7 @@ const Home = () => {
             as good as they taste."
           />
         </div>
+
         {/* About Us Section */}
         <section className="bg-[#EDEAE2] text-[#025043] mt-25 py-24  md:px-20">
           <span className="font-[Expo-book] text-black text-[40px] md:text-[64px] block mb-6 pl-4 md:pl-0">
@@ -173,19 +167,20 @@ const Home = () => {
         {/* All Product */}
         <AllProductSlider3 />
 
+        {/* Before Footer */}
         <div className="flex flex-col md:flex-row items-center justify-around py-5 px-1 md:px-0">
           <div className="w-full md:w-1/2 flex justify-center">
             <img
-              src={Final2}
+              src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358482/footer2_b3gzji.png"
               alt="final"
               className="w-full  h-auto object-contain"
             />
           </div>
           <div className="w-full md:w-1/2 flex justify-center-safe ">
             <img
-              src={Final}
+              src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358486/footer1_baaibi.png"
               alt="final"
-              className="w-full max-w-[526px] max-w-4k"
+              className="w-full max-w-[700px]"
             />
           </div>
         </div>

@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import Slider from 'react-slick';
-import product1 from '../../assets/images/product1.png';
-import product2 from '../../assets/images/product2.png';
-import product3 from '../../assets/images/product3.png';
-import product4 from '../../assets/images/product4.png';
-import product5 from '../../assets/images/product5.png';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
 function ProductSlider1() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const products = [
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360179/product3_wqtz8x.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product4_gffzpk.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png",
+  ];
+
 
   const CustomArrow = ({ onClick, direction }) => (
     <button
@@ -32,6 +36,9 @@ function ProductSlider1() {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
     nextArrow: <CustomArrow direction="next" />,
     prevArrow: <CustomArrow direction="prev" />,
     afterChange: (current) => setCurrentSlide(current),
@@ -58,47 +65,43 @@ function ProductSlider1() {
         {/* Slider */}
         <div className="grid grid-cols-1 gap-10 relative">
           <Slider {...settings}>
-            {[product1, product2, product3, product4, product5].map(
-              (img, i) => (
-                <div key={i} className="md:px-1">
-                  <div
-                    key={i}
-                    className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
-                  >
-                    <img
-                      src={img}
-                      alt="stainless steel cookware"
-                      className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
-                    />
+            {products.map((img, i) => (
+              <div key={i} className="md:px-1">
+                <div className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
+                  <img
+                    src={img}
+                    alt="stainless steel cookware"
+                    className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
+                  />
 
-                    <div className="p-4">
-                      <h3 className="text-[#025043] text-[16px] font-medium mb-2">
-                        stainless steel cookware
-                      </h3>
+                  <div className="p-4">
+                    <h3 className="text-[#025043] text-[16px] font-medium mb-2">
+                      stainless steel cookware
+                    </h3>
 
-                      <div className="border-b border-[#025043]/50 mb-3"></div>
+                    <div className="border-b border-[#025043]/50 mb-3"></div>
 
-                      <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                        30,000 s. p
-                      </p>
+                    <p className="text-[#025043] text-[18px] font-semibold mb-4">
+                      30,000 s. p
+                    </p>
 
-                      <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
-                        <div className="flex items-center gap-1 text-sm">
-                          <span>☆ ☆ ☆ ☆ ☆</span>
-                          <button className="text-sm hover:underline">
-                            view more
-                          </button>
-                        </div>
-
-                        <button className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
-                          Add to cart
+                    <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
+                      <div className="flex items-center gap-1 text-sm">
+                        <span>☆ ☆ ☆ ☆ ☆</span>
+                        <button className="text-sm hover:underline">
+                          view more
                         </button>
                       </div>
+
+                      <button className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
+                        Add to cart
+                      </button>
                     </div>
                   </div>
                 </div>
-              )
-            )}
+              </div>
+            ))}
+
           </Slider>
 
           <div className="mt-6 px-2 md:px-0">

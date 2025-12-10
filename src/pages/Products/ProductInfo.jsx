@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import LeftIcon from '../../assets/icons/LeftIcon';
-import ProductIno from '../../assets/images/productInfo.png';
 import PlusIcon from '../../assets/icons/PlusIcon';
 import MinusIcon from '../../assets/icons/MinusIcon';
 import CloseIcon from '../../assets/icons/CloseIcon';
@@ -35,7 +34,7 @@ const ProductInfo = () => {
         {/* Left Image Section */}
         <div className="w-full lg:w-1/2">
           <img
-            src={ProductIno}
+            src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765364809/productInfo_d9c0pg.png"
             alt="product-info"
             className="w-full h-auto object-cover shadow-md rounded-2xl"
           />

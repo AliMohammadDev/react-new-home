@@ -1,8 +1,3 @@
-import CategoryImage from '../../assets/images/category.png';
-import product1 from '../../assets/images/product1.png';
-import product2 from '../../assets/images/product2.png';
-import product3 from '../../assets/images/product3.png';
-import product4 from '../../assets/images/product4.png';
 import FilterIcon from '../../assets/icons/FilterIcon.jsx';
 import WishListIcon from '../../assets/icons/WishListIcon.jsx';
 import { useState, useEffect } from 'react';
@@ -18,7 +13,15 @@ import ProductFilters from './ProductFilters.jsx';
 
 const Product = () => {
   const { categoryId } = useParams();
-  const productImages = [product1, product2, product3, product4];
+  // const productImages = [product1, product2, product3, product4];
+
+  const products = [
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360179/product3_wqtz8x.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product4_gffzpk.png",
+  ];
+
   const [showFilters, setShowFilters] = useState(false);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -33,7 +36,7 @@ const Product = () => {
 
   return (
     <div className="bg-[#EDEAE2] min-h-screen">
-      <img src={CategoryImage} alt="Category" className="w-full" />
+      <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765364809/category1_w0uzis.png" alt="Category" className="w-full" />
 
       <div className=" mx-auto px-6 py-10">
         <div className="flex justify-start mb-10">
@@ -65,7 +68,7 @@ const Product = () => {
           <div
             className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
           >
-            {productImages.map((img, i) => (
+            {products.map((img, i) => (
               <div key={i} className="md:px-1">
                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img

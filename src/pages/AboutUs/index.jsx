@@ -87,7 +87,7 @@ const AboutUs = () => {
           </button>
 
           {/* Circle Chevron Icon */}
-          <div className="w-7 h-7 flex items-center bg-black justify-center border border-black rounded-full   transition">
+          <div className="w-9 h-9 flex items-center bg-black justify-center border border-black rounded-full hover:opacity-80 transition">
             <ChevronRightIcon color="white" />
           </div>
         </div>

@@ -1,11 +1,14 @@
 import Slider from 'react-slick';
 
-import allProduct1 from '../../assets/images/allProduct1.png';
-import allProduct2 from '../../assets/images/allProduct2.png';
-import allProduct3 from '../../assets/images/allProduct3.png';
-import allProduct4 from '../../assets/images/allProduct4.png';
+
 
 function AllProductSlider3() {
+  const products = [
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362578/allProduct1_s7pwoi.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362586/allProduct2_py4sz0.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362584/allProduct3_mk43su.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362590/allProduct4_qfbh6r.png",
+  ];
   const CustomNextArrow = (props) => {
     const { onClick } = props;
     return (
@@ -24,8 +27,11 @@ function AllProductSlider3() {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
+    slidesToShow: 2.5,
+    slidesToScroll: 2.5,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
     arrows: true,
     nextArrow: <CustomNextArrow />,
     responsive: [
@@ -41,13 +47,7 @@ function AllProductSlider3() {
       <section className="bg-[#EDEAE2] text-[#025043] py-10">
         <div className="grid grid-cols-1 gap-10 relative">
           <Slider {...settings}>
-            {[
-              allProduct1,
-              allProduct2,
-              allProduct3,
-              allProduct4,
-              allProduct4,
-            ].map((img, i) => (
+            {products.map((img, i) => (
               <div key={i} className="px-1">
                 <div
                   key={i}

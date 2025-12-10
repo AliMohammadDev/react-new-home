@@ -2,13 +2,19 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
-import product21 from '../../assets/images/product21.png';
-import product22 from '../../assets/images/product22.png';
-import product23 from '../../assets/images/product23.png';
 import ArrowRightLong from '../../assets/icons/ArrowRightLong.jsx';
 
 function MostProduct() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const products = [
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362011/product21_scks0d.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362011/product22_ozcq5j.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362012/product23_dyuq2s.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362027/product24_wtqy1b.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362027/product25_znewrk.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362028/product26_dtvezt.png",
+  ];
 
   const CustomArrow = ({ onClick, direction }) => (
     <button
@@ -35,6 +41,9 @@ function MostProduct() {
     speed: 500,
     slidesToShow: 2.5,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
     nextArrow: <CustomArrow direction="next" />,
     prevArrow: <CustomArrow direction="prev" />,
     afterChange: (current) => setCurrentSlide(current),
@@ -69,14 +78,14 @@ function MostProduct() {
             </p>
           </div>
 
-          <div className="mt-40 md:-mt-3 lg:mt-[64px] xl:mt-[127px] 2xl:mt-[148px] ml-4 md:ml-0 text-sm font-[Expo-arabic] cursor-pointer flex items-center gap-1">
+          <div className="mt-40 md:-mt-3 lg:mt-16 xl:mt-[127px] 2xl:mt-[148px] ml-4 md:ml-0 text-sm font-[Expo-arabic] cursor-pointer flex items-center gap-1">
             click to show products <ArrowRightLong />
           </div>
         </div>
 
         <div className="relative w-full">
           <Slider {...settings}>
-            {[product21, product22, product23, product23].map((img, i) => (
+            {products.map((img, i) => (
               <div key={i} className="md:px-1">
                 <div
                   key={i}

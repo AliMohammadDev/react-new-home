@@ -2,13 +2,17 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
-import product11 from '../../assets/images/product11.png';
-import product12 from '../../assets/images/product12.png';
-import product13 from '../../assets/images/product13.png';
+
 import Group from '../../assets/images/group.svg';
 
 function ProductSlider2() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const products = [
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product11_iziqjk.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product12_cyevgx.png",
+    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product13_zm7evn.png",
+  ];
 
   const CustomArrow = ({ onClick, direction }) => (
     <button
@@ -26,13 +30,14 @@ function ProductSlider2() {
       )}
     </button>
   );
-
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 2.5,
     slidesToScroll: 1,
-
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
     nextArrow: <CustomArrow direction="next" />,
     prevArrow: <CustomArrow direction="prev" />,
     afterChange: (current) => setCurrentSlide(current),
@@ -63,7 +68,7 @@ function ProductSlider2() {
         {/* Slider */}
         <div className="relative w-full md:mt-1 0">
           <Slider {...settings}>
-            {[product11, product12, product13, product13].map((img, i) => (
+            {products.map((img, i) => (
               <div key={i} className="md:px-1">
                 <div
                   key={i}

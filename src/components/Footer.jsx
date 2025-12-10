@@ -17,7 +17,7 @@ const Footer = () => {
         {/* section 1 */}
         <div className="flex flex-col md:flex-row justify-center md:justify-between items-center text-center md:text-left text-sm md:text-base font-[Qanduchia] tracking-wide space-y-4 md:space-y-0 w-full">
           <div className="flex items-center justify-center md:justify-between w-full md:w-auto">
-            <span className="text-left mr-2 md:text-[15px] lg:text-[20px] xlg:text-[40px]">
+            <span className="text-left mr-2 md:text-[15px] lg:text-[25px]">
               /https://almanzel-alhadith.com
             </span>
             <img
@@ -35,14 +35,14 @@ const Footer = () => {
               alt="circle"
               className="w-[35px] h-[34px] md:w-[38px] md:h-[38px]"
             />
-            <span className="mr-2 md:ml-2 md:text-[15px] lg:text-[20px] xlg:text-[40px]">
+            <span className="mr-2 md:ml-2 md:text-[15px] lg:text-[25px]">
               Almanzil-Alhadith
             </span>
           </div>
 
           <div className="hidden md:block w-px h-10 bg-[#EDEAE2] mx-6"></div>
 
-          <span className="md:text-[15px] lg:text-[20px] xlg:text-[40px]">
+          <span className="md:text-[15px] lg:text-[25px]">
             Kitchenware
           </span>
         </div>
@@ -67,7 +67,8 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className={`hover:${isLightFooter ? 'text-gray-500' : 'text-[#EDEAE2]'}`}
+                  className={`${isLightFooter ? 'hover:text-gray-500' : 'hover:text-[#EDEAE2]'}`}
+
                 >
                   HOME
                 </a>
@@ -75,7 +76,8 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className={`hover:${isLightFooter ? 'text-gray-500' : 'text-[#EDEAE2]'}`}
+                  className={`${isLightFooter ? 'hover:text-gray-500' : 'hover:text-[#EDEAE2]'}`}
+
                 >
                   FEATURED
                 </a>
@@ -83,7 +85,8 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className={`hover:${isLightFooter ? 'text-gray-500' : 'text-[#EDEAE2]'}`}
+                  className={`${isLightFooter ? 'hover:text-gray-500' : 'hover:text-[#EDEAE2]'}`}
+
                 >
                   ABOUT US
                 </a>
@@ -91,7 +94,8 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className={`hover:${isLightFooter ? 'text-gray-500' : 'text-[#EDEAE2]'}`}
+                  className={`${isLightFooter ? 'hover:text-gray-500' : 'hover:text-[#EDEAE2]'}`}
+
                 >
                   CONTACTS
                 </a>
@@ -99,7 +103,8 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className={`hover:${isLightFooter ? 'text-gray-500' : 'text-[#EDEAE2]'}`}
+                  className={`${isLightFooter ? 'hover:text-gray-500' : 'hover:text-[#EDEAE2]'}`}
+
                 >
                   NEW COLLECTION
                 </a>
@@ -127,9 +132,8 @@ const Footer = () => {
           </div>
 
           <h2
-            className={`mt-4 md:mt-0 text-2xl md:text-4xl lg:text-3xl xl:text-5xl font-[Expo-arabic] sm:text-center md:text-right ${
-              isLightFooter ? 'text-black' : 'text-white'
-            }`}
+            className={`mt-4 md:mt-0 text-2xl md:text-4xl lg:text-3xl xl:text-5xl font-[Expo-arabic] sm:text-center md:text-right ${isLightFooter ? 'text-black' : 'text-white'
+              }`}
           >
             AL-MANZEL AL-HADITH
           </h2>

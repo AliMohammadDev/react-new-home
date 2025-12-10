@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import HomeLogo from '../assets/images/home-logo-white.svg';
 import ChevronDownIcon from '../assets/icons/ChevronDownIcon.jsx';
 import ChevronRightIcon from '../assets/icons/ChevronRightIcon.jsx';
@@ -6,7 +6,6 @@ import CartIcon from '../assets/icons/CartIcon.jsx';
 import FavoriteIcon from '../assets/icons/FavoriteIcon.jsx';
 import ProfileIcon from '../assets/icons/ProfileIcon.jsx';
 import HamburgerIcon from '../assets/icons/HamburgerIcon.jsx';
-import ProductImage from '../assets/images/product.png';
 import PlusIcon from '../assets/icons/PlusIcon.jsx';
 import MinusIcon from '../assets/icons/MinusIcon.jsx';
 import { useState } from 'react';
@@ -26,14 +25,16 @@ const Navbar = () => {
     'Kitchenware',
     'Bakeware',
     'Drinkware',
-    'For home',
+    'Forhome',
   ];
 
   return (
     /* Navbar */
     <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 lg:px-8 py-2 lg:py-4 md:py-1 z-50">
       {/* Logo */}
-      <img src={HomeLogo} alt="Logo" className="h-14 w-auto" />
+      <Link to={'/'} >
+        <img src={HomeLogo} alt="Logo" className="h-14 w-auto" />
+      </Link>
 
       {/* Desktop Nav */}
       <nav className="hidden lg:flex gap-8 font-[Expo-arabic]">
@@ -101,8 +102,7 @@ const Navbar = () => {
                 key={item}
                 to={`/products/${item.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${
-                    isActive ? 'text-[#E2995E]' : 'text-white'
+                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${isActive ? 'text-[#E2995E]' : 'text-white'
                   }`
                 }
                 onClick={() => setIsProductMenuOpen(false)}
@@ -243,7 +243,7 @@ const Navbar = () => {
         {isCartOpen && (
           <div
             className={clsx(
-              'absolute top-full font-[Expo-arabic] right-38 text-center -mt-10 custom-cart-dropdown',
+              'absolute top-full font-[Expo-arabic] right-38 text-center add-cart',
               'bg-white/10 backdrop-blur-xl shadow-lg w-80 py-6 z-50 border rounded-2xl border-white/20',
               'transition-all duration-300 ease-in-out origin-top'
             )}
@@ -261,7 +261,7 @@ const Navbar = () => {
 
                 <div className="grid grid-cols-3 gap-6 mb-1 items-center">
                   <img
-                    src={ProductImage}
+                    src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
                     alt="product"
                     className="object-cover rounded"
                   />

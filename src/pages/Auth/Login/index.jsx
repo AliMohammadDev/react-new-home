@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import HomeLogo from '../../../assets/images/home-logo-white.svg';
-import LoginImage from '../../../assets/images/LoginImage.jpg';
 import EmailIcon from '../../../assets/icons/EmailIcon';
 import PasswordIcon from '../../../assets/icons/PasswordIcon';
 import LeftIcon from '../../../assets/icons/LeftIcon';
@@ -8,7 +7,7 @@ function Login() {
   return (
     <div
       className="w-full min-h-screen  bg-cover bg-no-repeat relative bg-center md:bg-right"
-      style={{ backgroundImage: `url(${LoginImage})` }}
+      style={{ backgroundImage: `url(https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358011/LoginImage_q4fdk3.jpg)` }}
     >
       <div className="absolute top-1 md:top-6 left-6 z-20">
         <Link to={-1} className="hover:opacity-80 transition">
