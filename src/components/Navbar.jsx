@@ -10,6 +10,7 @@ import MinusIcon from '../assets/icons/MinusIcon.jsx';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { useEffect } from 'react';
+import cartImage from '../assets/images/addToCart.svg';
 
 const Navbar = () => {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
@@ -257,7 +258,7 @@ const Navbar = () => {
       )}
 
       {/* Cart & Profile */}
-      <div className="hidden lg:flex relative gap-22">
+      <div className="hidden lg:flex relative gap-24">
         <button
           aria-expanded={isCartOpen}
           onClick={() => setIsCartOpen(!isCartOpen)}
@@ -271,12 +272,14 @@ const Navbar = () => {
         {isCartOpen && (
           <div
             className={clsx(
-              'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center clip-path -mt-12',
-              'bg-white/10 backdrop-blur-xl shadow-lg w-90 py-6 z-50 border rounded-2xl border-white/20',
+              'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
+              'shadow-lg w-90 py-6 z-50 rounded-2xl',
               'transition-all duration-300 ease-in-out origin-top'
             )}
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              backgroundImage: `url(${cartImage})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
             }}
           >
             <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
@@ -359,6 +362,7 @@ const Navbar = () => {
                   </div>
                 </div>
 
+
                 {/* Divider */}
                 <div className="border-b border-white/30 my-4"></div>
 
@@ -438,7 +442,10 @@ const Navbar = () => {
           </div>
 
           <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771]">
-            <ProfileIcon />
+            <Link to={"profile"}>
+              <ProfileIcon />
+            </Link>
+
           </div>
         </div>
       </div>

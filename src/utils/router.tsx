@@ -8,6 +8,7 @@ import Product from '../pages/Products';
 import ProductInfo from '../pages/Products/ProductInfo';
 import AboutUs from '../pages/AboutUs';
 import Checkouts from '../pages/Checkouts';
+import Profile from '../pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'checkouts',
         element: <Checkouts />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
       },
       {
         path: 'products/:categoryId',
