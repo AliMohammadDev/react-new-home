@@ -1,5 +1,4 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
-// import HomeLogo from '../assets/images/home-logo-white.svg';
 import ChevronDownIcon from '../assets/icons/ChevronDownIcon.jsx';
 import ChevronRightIcon from '../assets/icons/ChevronRightIcon.jsx';
 import CartIcon from '../assets/icons/CartIcon.jsx';
@@ -10,10 +9,12 @@ import PlusIcon from '../assets/icons/PlusIcon.jsx';
 import MinusIcon from '../assets/icons/MinusIcon.jsx';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 
 const Navbar = () => {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isWishListOpen, setIsWishListOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const location = useLocation();
@@ -25,8 +26,35 @@ const Navbar = () => {
     'Kitchenware',
     'Bakeware',
     'Drinkware',
+    'Aoppliances',
     'Forhome',
   ];
+
+  useEffect(() => {
+    setIsWishListOpen(false);
+    setIsCartOpen(false);
+    setIsProductMenuOpen(false);
+    setIsMobileMenuOpen(false);
+    setIsCategoryMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest('.cart-dropdown') &&
+        !e.target.closest('.cart-button')) {
+        setIsCartOpen(false);
+      }
+
+      if (!e.target.closest('.wishlist-dropdown') &&
+        !e.target.closest('.wishlist-button')) {
+        setIsWishListOpen(false);
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
 
   return (
     /* Navbar */
@@ -229,11 +257,11 @@ const Navbar = () => {
       )}
 
       {/* Cart & Profile */}
-      <div className="hidden lg:flex relative gap-16">
+      <div className="hidden lg:flex relative gap-22">
         <button
           aria-expanded={isCartOpen}
           onClick={() => setIsCartOpen(!isCartOpen)}
-          className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic]
+          className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] cart-button
            hover:bg-[#EDEAE2] flex items-center gap-2 cursor-pointer"
         >
           Cart
@@ -243,15 +271,15 @@ const Navbar = () => {
         {isCartOpen && (
           <div
             className={clsx(
-              'absolute top-full font-[Expo-arabic] right-38 text-center add-cart',
-              'bg-white/10 backdrop-blur-xl shadow-lg w-80 py-6 z-50 border rounded-2xl border-white/20',
+              'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center clip-path -mt-12',
+              'bg-white/10 backdrop-blur-xl shadow-lg w-90 py-6 z-50 border rounded-2xl border-white/20',
               'transition-all duration-300 ease-in-out origin-top'
             )}
             style={{
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
             }}
           >
-            <div className="text-center text-white text-sm w-full px-4 pt-10 pb-4">
+            <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
               <div className="inline-block text-left w-full max-w-xs">
 
                 {/* Header */}
@@ -282,7 +310,7 @@ const Navbar = () => {
                     </button>
 
                     {/* + */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
                       <PlusIcon />
                     </button>
 
@@ -290,7 +318,7 @@ const Navbar = () => {
                     <span className="px-4">{1}</span>
 
                     {/* - */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
                       <MinusIcon />
                     </button>
                   </div>
@@ -325,7 +353,7 @@ const Navbar = () => {
                     <span className="px-4">{2}</span>
 
                     {/* - */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
+                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
                       <MinusIcon />
                     </button>
                   </div>
@@ -352,12 +380,63 @@ const Navbar = () => {
 
 
           </div>
+
         )}
 
         <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
-          <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771]">
-            <FavoriteIcon />
+          <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
+            <div
+              onClick={() => setIsWishListOpen(!isWishListOpen)}
+              className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button"
+            >
+              <FavoriteIcon />
+            </div>
+
+            {/* WISHLIST POPUP */}
+            {isWishListOpen && (
+              <div
+                className={clsx(
+                  'wishlist-dropdown absolute top-full right-0 mt-3 font-[Expo-arabic]',
+                  'bg-white/10 backdrop-blur-xl shadow-xl w-80 border rounded-2xl border-white/20',
+                  'transition-all duration-300 ease-in-out origin-top z-50'
+                )}
+                style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}
+              >
+                <div className="text-white text-sm w-full px-5 py-6">
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-center mb-4 tracking-wide">
+                    Wishlist
+                  </h3>
+
+                  {/* Divider */}
+                  <div className="border-b border-white/20 mb-4"></div>
+
+                  {/* ITEM — Example */}
+                  <div className="flex items-center gap-4 mb-4 p-2 rounded-xl">
+                    {/* Image */}
+                    <img
+                      src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
+                      alt="wish item"
+                      className="object-cover rounded-xl w-16 h-16 border border-white/20"
+                    />
+
+                    {/* NAME + REMOVE */}
+                    <div className="flex justify-between items-center w-full">
+                      {/* NAME */}
+                      <span className="font-medium">Product Name</span>
+
+                      {/* REMOVE BUTTON */}
+                      <button className="text-xs text-red-300 hover:text-red-400 underline">
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+
           <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771]">
             <ProfileIcon />
           </div>

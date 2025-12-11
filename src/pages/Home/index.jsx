@@ -83,7 +83,7 @@ const Home = () => {
             as good as they taste."
           />
           <ProductCard
-            title="Bakeware"
+            title="Aoppliances"
             image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/bakeWare_kbtsga.png"
             description=" Durable and versatile bakeware designed for even baking and easy
             release. Perfect for cakes, cookies, muffins, and more."
