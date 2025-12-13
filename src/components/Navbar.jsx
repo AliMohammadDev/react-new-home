@@ -55,11 +55,7 @@ const Navbar = () => {
 
 
 
-  const handleLogout = () => {
-    Cookie().remove("token");
-    axios.defaults.headers.common.Authorization = "";
-    navigate("/login");
-  };
+
   return (
     /* Navbar */
     <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 lg:px-8 py-2 lg:py-4 md:py-1 z-50">
@@ -368,7 +364,6 @@ const Navbar = () => {
             </div>
 
             {/* My Profile */}
-            {/* My Profile */}
             <Dropdown>
               <DropdownTrigger asChild>
                 <button className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200">
@@ -387,12 +382,12 @@ const Navbar = () => {
                 >
                   My Profile
                 </DropdownItem>
-                <DropdownItem
-                  onClick={handleLogout}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left"
-                >
-                  Logout
+                <DropdownItem className="px-4 py-2 text-left cursor-pointer">
+                  <Link to="/logout" className="flex items-center">
+                    Logout
+                  </Link>
                 </DropdownItem>
+
               </DropdownMenu>
             </Dropdown>
 

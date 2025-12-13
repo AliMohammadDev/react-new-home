@@ -12,6 +12,7 @@ import Profile from '../pages/Profile';
 import Wishlists from '../pages/Wishlists';
 import ShowAllProducts from '../pages/Products/ShowAllProducts';
 import ErrorFallback from '../pages/ErrorFallback';
+import Logout from '../pages/Logout';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: 'login',
     element: <Login />,
+  },
+  {
+    path: '/logout',
+    element: <Logout />,
   },
   {
     path: 'register',
