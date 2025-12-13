@@ -13,8 +13,6 @@ import { useEffect } from 'react';
 import cartImage from '../assets/images/addToCart.svg';
 import { useGetProfile } from '../api/auth.jsx';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
-import Cookie from 'cookie-universal';
-import axios from 'axios';
 
 const Navbar = () => {
   const { data: profile } = useGetProfile();
@@ -52,9 +50,6 @@ const Navbar = () => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
-
-
-
 
   return (
     /* Navbar */
@@ -378,11 +373,11 @@ const Navbar = () => {
                   onClick={() => {
                     navigate("/profile");
                   }}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left"
+                  className="py-2 hover:bg-gray-100 cursor-pointer mr-14"
                 >
                   My Profile
                 </DropdownItem>
-                <DropdownItem className="px-4 py-2 text-left cursor-pointer">
+                <DropdownItem className="py-2 cursor-pointer">
                   <Link to="/logout" className="flex items-center">
                     Logout
                   </Link>

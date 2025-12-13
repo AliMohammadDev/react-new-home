@@ -52,7 +52,7 @@ function Register() {
                 <input
                   {...register("name")}
                   type="text"
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   required
                   placeholder="Full Name"
                   autoComplete="new-name"
@@ -71,7 +71,7 @@ function Register() {
                 <input
                   {...register("email")}
                   type="text"
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   required
                   placeholder="E-mail Address"
                   autoComplete="new-name"
@@ -87,7 +87,7 @@ function Register() {
                 <input
                   {...register("password")}
                   type="password"
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   placeholder="Password"
                   autoComplete="new-password"
                 />
@@ -102,7 +102,7 @@ function Register() {
                 <input
                   {...register("password_confirmation")}
                   type="password"
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   placeholder="Confirm password"
                   autoComplete="new-password"
                 />

@@ -47,7 +47,7 @@ function Login() {
                 <input
                   type="text"
                   {...register("email")}
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   autoComplete="new-name"
                   required
                   placeholder="E-mail Address"
@@ -62,7 +62,7 @@ function Login() {
                 <input
                   type="password"
                   {...register("password")}
-                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-12 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   placeholder="Password"
                   autoComplete="new-password"
                 />
