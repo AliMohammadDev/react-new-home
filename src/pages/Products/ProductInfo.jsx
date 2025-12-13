@@ -89,7 +89,7 @@ const ProductInfo = () => {
               <div className="flex items-center justify-between w-full">
                 {/* Quantity Controls */}
                 <div className="relative flex items-center border-white rounded-md bg-gray-200 px-2 py-1">
-                  <button className="p-2 ml-1 rounded-full bg-black text-white cursor-pointer">
+                  <button className="p-2 ml-1 rounded-full bg-black text-white hover:opacity-80 cursor-pointer">
                     <PlusIcon color="black" />
                   </button>
 
@@ -97,7 +97,7 @@ const ProductInfo = () => {
                     0
                   </span>
 
-                  <button className="p-2 -ml-1 rounded-full bg-black text-white cursor-pointer">
+                  <button className="p-2 -ml-1 rounded-full bg-black text-white hover:opacity-80 cursor-pointer">
                     <MinusIcon color="black" />
                   </button>
                 </div>
@@ -109,7 +109,7 @@ const ProductInfo = () => {
                   </button>
 
                   {/* Circle Chevron Icon */}
-                  <div className="w-8 h-8 bg-black flex items-center justify-center border border-black rounded-full transition">
+                  <div className="w-8 h-8 bg-black flex items-center justify-center border border-black rounded-full hover:opacity-80 transition">
                     <ChevronRightIcon color="white" />
                   </div>
                 </div>
@@ -136,8 +136,10 @@ const ProductInfo = () => {
 
           {/* Right Subsection */}
           <div className="md:w-1/2 pl-4 flex-1 space-y-3">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <CloseIcon />
+            <div className="flex items-center gap-2 text-sm  text-gray-500">
+              <span className='hover:opacity-80'>
+                <CloseIcon />
+              </span>
               <span>Remove</span>
             </div>
 

@@ -11,11 +11,13 @@ import Checkouts from '../pages/Checkouts';
 import Profile from '../pages/Profile';
 import Wishlists from '../pages/Wishlists';
 import ShowAllProducts from '../pages/Products/ShowAllProducts';
+import ErrorFallback from '../pages/ErrorFallback';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorFallback />,
     children: [
       { index: true, element: <Home /> },
       { path: 'about', element: <AboutUs /> },
