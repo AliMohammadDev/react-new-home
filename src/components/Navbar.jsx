@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import ChevronDownIcon from '../assets/icons/ChevronDownIcon.jsx';
 import ChevronRightIcon from '../assets/icons/ChevronRightIcon.jsx';
 import CartIcon from '../assets/icons/CartIcon.jsx';
@@ -11,15 +11,19 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import cartImage from '../assets/images/addToCart.svg';
+import { useGetProfile } from '../api/auth.jsx';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
+import Cookie from 'cookie-universal';
+import axios from 'axios';
 
 const Navbar = () => {
+  const { data: profile } = useGetProfile();
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  // const [isWishListOpen, setIsWishListOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const location = useLocation();
-
+  const navigate = useNavigate();
   const isProductsActive = location.pathname.startsWith('/products');
   const productCategories = [
     'Cookware',
@@ -32,7 +36,6 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    // setIsWishListOpen(false);
     setIsCartOpen(false);
     setIsProductMenuOpen(false);
     setIsMobileMenuOpen(false);
@@ -45,16 +48,18 @@ const Navbar = () => {
         !e.target.closest('.cart-button')) {
         setIsCartOpen(false);
       }
-      // if (!e.target.closest('.wishlist-dropdown') &&
-      //   !e.target.closest('.wishlist-button')) {
-      //   setIsWishListOpen(false);
-      // }
     }
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
 
+
+  const handleLogout = () => {
+    Cookie().remove("token");
+    axios.defaults.headers.common.Authorization = "";
+    navigate("/login");
+  };
   return (
     /* Navbar */
     <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 lg:px-8 py-2 lg:py-4 md:py-1 z-50">
@@ -256,191 +261,155 @@ const Navbar = () => {
       )}
 
       {/* Cart & Profile */}
-      <div className="hidden lg:flex relative gap-24">
-        <button
-          aria-expanded={isCartOpen}
-          onClick={() => setIsCartOpen(!isCartOpen)}
-          className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] cart-button
+      {profile ? (
+        <div className="hidden lg:flex relative gap-24">
+          <button
+            aria-expanded={isCartOpen}
+            onClick={() => setIsCartOpen(!isCartOpen)}
+            className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] cart-button
            hover:bg-[#EDEAE2] flex items-center gap-2 cursor-pointer"
-        >
-          Cart
-          <CartIcon />
-        </button>
-
-        {isCartOpen && (
-          <div
-            className={clsx(
-              'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
-              'shadow-lg w-90 py-6 z-50 rounded-2xl',
-              'transition-all duration-300 ease-in-out origin-top'
-            )}
-            style={{
-              backgroundImage: `url(${cartImage})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-            }}
           >
-            <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
-              <div className="inline-block text-left w-full max-w-xs">
+            Cart
+            <CartIcon />
+          </button>
 
-                {/* Header */}
-                <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
-                  <span>Product</span>
-                  <span>Price</span>
-                  <span>QTY</span>
-                </div>
-
-                {/* PRODUCT 1 */}
-                <div className="grid grid-cols-3 gap-4 mb-3 items-center">
-                  {/* Image */}
-                  <img
-                    src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
-                    alt="product"
-                    className="object-cover rounded w-16 h-16"
-                  />
-
-                  {/* Price */}
-                  <span className="font-medium">$5000.00 sp</span>
-
-                  {/* Quantity Box */}
-                  <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
-
-                    {/* Remove */}
-                    <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
-                      Remove
-                    </button>
-
-                    {/* + */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
-                      <PlusIcon />
-                    </button>
-
-                    {/* number */}
-                    <span className="px-4">{1}</span>
-
-                    {/* - */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
-                      <MinusIcon />
-                    </button>
-                  </div>
-                </div>
-
-                {/* PRODUCT 2 */}
-                <div className="grid grid-cols-3 gap-4 mb-3 items-center">
-                  {/* Image */}
-                  <img
-                    src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
-                    alt="product2"
-                    className="object-cover rounded w-16 h-16"
-                  />
-
-                  {/* Price */}
-                  <span className="font-medium">$7000.00 sp</span>
-
-                  {/* Quantity Box */}
-                  <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
-
-                    {/* Remove */}
-                    <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
-                      Remove
-                    </button>
-
-                    {/* + */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer">
-                      <PlusIcon />
-                    </button>
-
-                    {/* number */}
-                    <span className="px-4">{2}</span>
-
-                    {/* - */}
-                    <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
-                      <MinusIcon />
-                    </button>
-                  </div>
-                </div>
-
-
-                {/* Divider */}
-                <div className="border-b border-white/30 my-4"></div>
-
-                {/* Total */}
-                <div className="flex flex-col items-center">
-                  <span className="font-semibold">TOTAL</span>
-                  <span className="font-bold text-lg">$8000.00 sp</span>
-                </div>
-
-                {/* Checkout Button */}
-                <Link to={"checkouts"}>
-                  <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
-                    CHECKOUT NOW
-                  </button>
-                </Link>
-
-              </div>
-            </div>
-
-
-          </div>
-
-        )}
-
-        <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
-          <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
+          {isCartOpen && (
             <div
-              // onClick={() => setIsWishListOpen(!isWishListOpen)}
-              className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button"
+              className={clsx(
+                'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
+                'shadow-lg w-90 py-6 z-50 rounded-2xl',
+                'transition-all duration-300 ease-in-out origin-top'
+              )}
+              style={{
+                backgroundImage: `url(${cartImage})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
             >
-              <Link to={'/wishlists'} >
-                <FavoriteIcon />
-              </Link>
-            </div>
+              <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
+                <div className="inline-block text-left w-full max-w-xs">
 
-            {/* {isWishListOpen && (
-              <div
-                className={clsx(
-                  'wishlist-dropdown absolute top-full right-0 mt-3 font-[Expo-arabic]',
-                  'bg-white/10 backdrop-blur-xl shadow-xl w-80 border rounded-2xl border-white/20',
-                  'transition-all duration-300 ease-in-out origin-top z-50'
-                )}
-                style={{ backgroundColor: 'rgba(0,0,0,0.45)' }}
-              >
-                <div className="text-white text-sm w-full px-5 py-6">
+                  {/* Header */}
+                  <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
+                    <span>Product</span>
+                    <span>Price</span>
+                    <span>QTY</span>
+                  </div>
 
-                  <h3 className="text-lg font-semibold text-center mb-4 tracking-wide">
-                    Wishlist
-                  </h3>
-
-                  <div className="border-b border-white/20 mb-4"></div>
-
-                  <div className="flex items-center gap-4 mb-4 p-2 rounded-xl">
+                  {/* PRODUCT 1 */}
+                  <div className="grid grid-cols-3 gap-4 mb-3 items-center">
+                    {/* Image */}
                     <img
                       src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
-                      alt="wish item"
-                      className="object-cover rounded-xl w-16 h-16 border border-white/20"
+                      alt="product"
+                      className="object-cover rounded w-16 h-16"
                     />
 
-                    <div className="flex justify-between items-center w-full">
-                      <span className="font-medium">Product Name</span>
+                    {/* Price */}
+                    <span className="font-medium">$5000.00 sp</span>
 
-                      <button className="text-xs text-red-300 hover:text-red-400 underline">
+                    {/* Quantity Box */}
+                    <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
+
+                      {/* Remove */}
+                      <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
                         Remove
+                      </button>
+
+                      {/* + */}
+                      <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
+                        <PlusIcon />
+                      </button>
+
+                      {/* number */}
+                      <span className="px-4">{1}</span>
+
+                      {/* - */}
+                      <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
+                        <MinusIcon />
                       </button>
                     </div>
                   </div>
+
+
+                  {/* Divider */}
+                  <div className="border-b border-white/30 my-4"></div>
+
+                  {/* Total */}
+                  <div className="flex flex-col items-center">
+                    <span className="font-semibold">TOTAL</span>
+                    <span className="font-bold text-lg">$8000.00 sp</span>
+                  </div>
+
+                  {/* Checkout Button */}
+                  <Link to={"checkouts"}>
+                    <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
+                      CHECKOUT NOW
+                    </button>
+                  </Link>
+
                 </div>
               </div>
-            )} */}
-          </div>
 
-          <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771]">
-            <Link to={"profile"}>
-              <ProfileIcon />
-            </Link>
+
+            </div>
+
+          )}
+
+          <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
+            <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
+              <div
+                className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button"
+              >
+                <Link to={'/wishlists'} >
+                  <FavoriteIcon />
+                </Link>
+              </div>
+            </div>
+
+            {/* My Profile */}
+            {/* My Profile */}
+            <Dropdown>
+              <DropdownTrigger asChild>
+                <button className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200">
+                  <ProfileIcon />
+                </button>
+              </DropdownTrigger>
+
+              <DropdownMenu
+                className="bg-white text-[#025043] rounded-xl  w-40 font-[Expo-arabic] overflow-hidden"
+              >
+                <DropdownItem
+                  onClick={() => {
+                    navigate("/profile");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left"
+                >
+                  My Profile
+                </DropdownItem>
+                <DropdownItem
+                  onClick={handleLogout}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-left"
+                >
+                  Logout
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+
+
 
           </div>
         </div>
-      </div>
+      ) :
+        <div className="hidden lg:flex">
+          <Link
+            to="/login"
+            className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] hover:bg-[#025043] hover:text-[#EDEAE2] transition"
+          >
+            Login
+          </Link>
+        </div>
+      }
     </div>
   );
 };

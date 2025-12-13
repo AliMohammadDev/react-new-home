@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LeftIcon from '../../assets/icons/LeftIcon';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon';
 
 const AboutUs = () => {
 
-  const navigate = useNavigate();
   return (
     <div className="flex flex-col md:flex-row justify-around items-start text-black px-4 sm:px-6 lg:px-20 py-10 gap-6 bg-white min-h-screen ">
       {/* Back Button */}
@@ -82,11 +81,10 @@ const AboutUs = () => {
           </div>
         </section>
         <div className="flex items-center gap-1 justify-end">
-          <button
-            onClick={navigate('/products')}
+          <Link to={'/products'}
             className="px-6 py-1 bg-black text-white rounded-md hover:opacity-80 transition whitespace-nowrap">
             click to show gallery
-          </button>
+          </Link>
 
           {/* Circle Chevron Icon */}
           <div className="w-9 h-9 flex items-center bg-black justify-center border border-black rounded-full hover:opacity-80 transition">

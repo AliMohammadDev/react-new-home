@@ -2,7 +2,16 @@ import { Link } from 'react-router-dom';
 import EmailIcon from '../../../assets/icons/EmailIcon';
 import PasswordIcon from '../../../assets/icons/PasswordIcon';
 import LeftIcon from '../../../assets/icons/LeftIcon';
+import { useForm } from 'react-hook-form';
+import { useRegister } from '../../../api/auth';
+import NameIcon from '../../../assets/icons/NameIcon';
 function Register() {
+
+  const { register, handleSubmit } = useForm();
+  const { mutate: login, isPending: loading, error } = useRegister();
+  const onSubmit = (values) => {
+    login(values);
+  };
   return (
     <div
       className="w-full min-h-screen  bg-cover bg-no-repeat relative bg-center md:bg-right"
@@ -24,8 +33,34 @@ function Register() {
             <p className=" text-gray-200 mb-6">
               Hello, please log in to access your account.
             </p>
+            {error && (
+              <div className="mb-4 rounded-md bg-red-500/20 border border-red-500/40 px-3 py-2 text-sm text-red-200">
+                {error.message}
+              </div>
+            )}
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+
+
+              {/* Name with icon */}
+              <div className="relative">
+                {/* SVG icon (email) */}
+                <div className="pointer-events-none absolute left-1 top-1/2 -translate-y-1/2">
+                  <NameIcon />
+                </div>
+
+                <input
+                  {...register("name")}
+                  type="text"
+                  className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
+                  required
+                  placeholder="Full Name"
+                  autoComplete="new-name"
+                />
+              </div>
+
+
+
               {/* E-mail with icon */}
               <div className="relative">
                 {/* SVG icon (email) */}
@@ -34,6 +69,7 @@ function Register() {
                 </div>
 
                 <input
+                  {...register("email")}
                   type="text"
                   className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   required
@@ -49,6 +85,7 @@ function Register() {
                 </div>
 
                 <input
+                  {...register("password")}
                   type="password"
                   className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   placeholder="Password"
@@ -63,6 +100,7 @@ function Register() {
                 </div>
 
                 <input
+                  {...register("password_confirmation")}
                   type="password"
                   className="block w-full rounded-md border border-white/20 bg-white/20 px-3 py-3 pl-10 placeholder-gray-300 focus:outline-none focus:ring-2  sm:text-sm"
                   placeholder="Confirm password"
@@ -85,12 +123,25 @@ function Register() {
                 </label>
               </div>
 
-              <button
+              {/* <button
                 type="submit"
                 className="w-full bg-black text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
               >
                 Sign up
+              </button> */}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className={`w-full rounded-xl py-2 font-semibold transition
+                  ${loading
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-black hover:opacity-90'}
+                `}
+              >
+                {loading ? 'Logging in...' : ' Sign up'}
               </button>
+
 
               <div className="text-center text-sm text-white mt-4">
                 Already have an account?{' '}
