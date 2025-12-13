@@ -6,9 +6,8 @@ function Profile() {
                 className="w-full max-w-3xl rounded-2xl p-8 md:p-12 flex flex-col gap-8 shadow-xl"
                 style={{
                     background:
-                        'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
+                        'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%)',
+                    backdropFilter: 'blur(8px)',
                 }}
             >
                 <h1 className="text-3xl font-[Expo-bold] text-center">Edit Profile</h1>

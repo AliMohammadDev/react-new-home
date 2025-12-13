@@ -40,7 +40,9 @@ const Contact = () => {
             name="name"
             required
             placeholder="Name"
-            className="w-full p-3 rounded-md bg-white/20 text-white focus:ring-2"
+            className="w-full p-3 rounded-md bg-white/20 text-white
+               border-0 outline-none focus:outline-none
+               focus:ring-2 focus:ring-white"
           />
 
           <input
@@ -48,7 +50,9 @@ const Contact = () => {
             name="email"
             required
             placeholder="Email"
-            className="w-full p-3 rounded-md bg-white/20 text-white focus:ring-2"
+            className="w-full p-3 rounded-md bg-white/20 text-white
+               border-0 outline-none focus:outline-none
+               focus:ring-2 focus:ring-white"
           />
 
           <textarea
@@ -56,7 +60,9 @@ const Contact = () => {
             required
             rows="5"
             placeholder="Message"
-            className="w-full p-3 rounded-md bg-white/20 text-white focus:ring-2"
+            className="w-full p-3 rounded-md bg-white/20 text-white
+               border-0 outline-none focus:outline-none
+               focus:ring-2 focus:ring-white"
           />
 
           <button
@@ -66,6 +72,7 @@ const Contact = () => {
             SEND MESSAGE
           </button>
         </form>
+
       </div>
     </div>
   );

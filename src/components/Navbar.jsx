@@ -15,7 +15,7 @@ import cartImage from '../assets/images/addToCart.svg';
 const Navbar = () => {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isWishListOpen, setIsWishListOpen] = useState(false);
+  // const [isWishListOpen, setIsWishListOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const location = useLocation();
@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    setIsWishListOpen(false);
+    // setIsWishListOpen(false);
     setIsCartOpen(false);
     setIsProductMenuOpen(false);
     setIsMobileMenuOpen(false);
@@ -45,13 +45,11 @@ const Navbar = () => {
         !e.target.closest('.cart-button')) {
         setIsCartOpen(false);
       }
-
-      if (!e.target.closest('.wishlist-dropdown') &&
-        !e.target.closest('.wishlist-button')) {
-        setIsWishListOpen(false);
-      }
+      // if (!e.target.closest('.wishlist-dropdown') &&
+      //   !e.target.closest('.wishlist-button')) {
+      //   setIsWishListOpen(false);
+      // }
     }
-
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
