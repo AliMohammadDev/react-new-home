@@ -9,6 +9,7 @@ import ProductInfo from '../pages/Products/ProductInfo';
 import AboutUs from '../pages/AboutUs';
 import Checkouts from '../pages/Checkouts';
 import Profile from '../pages/Profile';
+import Wishlists from '../pages/Wishlists';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'checkouts',
         element: <Checkouts />,
+      },
+      {
+        path: 'wishlists',
+        element: <Wishlists />,
       },
       {
         path: 'profile',

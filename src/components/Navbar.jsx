@@ -390,14 +390,15 @@ const Navbar = () => {
         <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
           <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
             <div
-              onClick={() => setIsWishListOpen(!isWishListOpen)}
+              // onClick={() => setIsWishListOpen(!isWishListOpen)}
               className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button"
             >
-              <FavoriteIcon />
+              <Link to={'/wishlists'} >
+                <FavoriteIcon />
+              </Link>
             </div>
 
-            {/* WISHLIST POPUP */}
-            {isWishListOpen && (
+            {/* {isWishListOpen && (
               <div
                 className={clsx(
                   'wishlist-dropdown absolute top-full right-0 mt-3 font-[Expo-arabic]',
@@ -408,29 +409,22 @@ const Navbar = () => {
               >
                 <div className="text-white text-sm w-full px-5 py-6">
 
-                  {/* Title */}
                   <h3 className="text-lg font-semibold text-center mb-4 tracking-wide">
                     Wishlist
                   </h3>
 
-                  {/* Divider */}
                   <div className="border-b border-white/20 mb-4"></div>
 
-                  {/* ITEM — Example */}
                   <div className="flex items-center gap-4 mb-4 p-2 rounded-xl">
-                    {/* Image */}
                     <img
                       src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
                       alt="wish item"
                       className="object-cover rounded-xl w-16 h-16 border border-white/20"
                     />
 
-                    {/* NAME + REMOVE */}
                     <div className="flex justify-between items-center w-full">
-                      {/* NAME */}
                       <span className="font-medium">Product Name</span>
 
-                      {/* REMOVE BUTTON */}
                       <button className="text-xs text-red-300 hover:text-red-400 underline">
                         Remove
                       </button>
@@ -438,7 +432,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
 
           <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771]">
