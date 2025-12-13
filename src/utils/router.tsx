@@ -10,6 +10,7 @@ import AboutUs from '../pages/AboutUs';
 import Checkouts from '../pages/Checkouts';
 import Profile from '../pages/Profile';
 import Wishlists from '../pages/Wishlists';
+import ShowAllProducts from '../pages/Products/ShowAllProducts';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'products',
+        element: <ShowAllProducts />,
       },
       {
         path: 'products/:categoryId',

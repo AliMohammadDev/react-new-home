@@ -13,8 +13,6 @@ import ProductFilters from './ProductFilters.jsx';
 
 const Product = () => {
   const { categoryId } = useParams();
-  // const productImages = [product1, product2, product3, product4];
-
   const products = [
     "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
     "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
@@ -23,7 +21,6 @@ const Product = () => {
   ];
 
   const [showFilters, setShowFilters] = useState(false);
-
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isMobile, setIsMobile] = useState(false);
 
