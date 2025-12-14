@@ -1,20 +1,19 @@
-
-import { Drawer, DrawerBody, DrawerContent, DrawerHeader, useDisclosure } from '@heroui/react';
-import React from 'react'
+import {
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+    useDisclosure,
+} from '@heroui/react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import FilterIcon from '../../assets/icons/FilterIcon';
 import ProductFilters from './ProductFilters';
 import WishListIcon from '../../assets/icons/WishListIcon';
+import { useGetAllProducts } from '../../api/products';
 
 function ShowAllProducts() {
-
-    const products = [
-        "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
-        "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
-        "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360179/product3_wqtz8x.png",
-        "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product4_gffzpk.png",
-    ];
+    const { data: products = [] } = useGetAllProducts();
 
     const [showFilters, setShowFilters] = useState(false);
 
@@ -28,9 +27,18 @@ function ShowAllProducts() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const renderStars = (rating = 0) => {
+        const fullStars = Math.round(rating);
+        return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+    };
+
     return (
         <div className="bg-[#EDEAE2] min-h-screen">
-            <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765364809/category1_w0uzis.png" alt="Category" className="w-full" />
+            <img
+                src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765364809/category1_w0uzis.png"
+                alt="Category"
+                className="w-full"
+            />
 
             <div className=" mx-auto px-6 py-10">
                 <div className="flex justify-start mb-10">
@@ -62,11 +70,11 @@ function ShowAllProducts() {
                     <div
                         className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
                     >
-                        {products.map((img, i) => (
+                        {products.map((product, i) => (
                             <div key={i} className="md:px-1">
                                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                                     <img
-                                        src={img}
+                                        src={product.img}
                                         alt="stainless steel cookware"
                                         className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                                     />
@@ -76,18 +84,21 @@ function ShowAllProducts() {
 
                                     <div className="p-4">
                                         <h3 className="text-[#025043] text-[16px] font-medium mb-2">
-                                            stainless steel cookware
+                                            {product.name}
                                         </h3>
 
                                         <div className="border-b border-[#025043]/50 mb-3"></div>
 
                                         <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                                            30,000 s.p
+                                            {product.final_price} s.p
                                         </p>
 
                                         <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
                                             <div className="flex items-center gap-1 text-sm">
-                                                <span>☆ ☆ ☆ ☆ ☆</span>
+                                                <span>{renderStars(product.rating)}</span>
+                                                <span className="text-xs text-gray-500">
+                                                    ({product.reviews_count})
+                                                </span>
                                                 <button className="text-sm hover:underline">
                                                     view more
                                                 </button>
@@ -121,4 +132,4 @@ function ShowAllProducts() {
     );
 }
 
-export default ShowAllProducts
+export default ShowAllProducts;

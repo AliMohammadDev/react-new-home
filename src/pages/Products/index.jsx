@@ -10,15 +10,13 @@ import {
   useDisclosure,
 } from '@heroui/react';
 import ProductFilters from './ProductFilters.jsx';
+import { useGetProductsByCategory } from '../../api/products.jsx';
 
 const Product = () => {
   const { categoryId } = useParams();
-  const products = [
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360179/product3_wqtz8x.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product4_gffzpk.png",
-  ];
+  const { data: products = [] } = useGetProductsByCategory(categoryId);
+
+  const category = products[0]?.category;
 
   const [showFilters, setShowFilters] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -31,9 +29,18 @@ const Product = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const renderStars = (rating = 0) => {
+    const fullStars = Math.round(rating);
+    return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+  };
+
   return (
     <div className="bg-[#EDEAE2] min-h-screen">
-      <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765364809/category1_w0uzis.png" alt="Category" className="w-full" />
+      {
+        category && (
+          <img src={category.image} alt={category.name} className="w-full" />
+        )
+      }
 
       <div className=" mx-auto px-6 py-10">
         <div className="flex justify-start mb-10">
@@ -65,12 +72,12 @@ const Product = () => {
           <div
             className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
           >
-            {products.map((img, i) => (
-              <div key={i} className="md:px-1">
+            {products.map((product) => (
+              <div key={product.id} className="md:px-1">
                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img
-                    src={img}
-                    alt="stainless steel cookware"
+                    src={product.image}
+                    alt={product.name}
                     className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                   />
                   <button className="absolute top-0 right-0 cursor-pointer rounded-full p-1 transition">
@@ -79,18 +86,21 @@ const Product = () => {
 
                   <div className="p-4">
                     <h3 className="text-[#025043] text-[16px] font-medium mb-2">
-                      stainless steel cookware
+                      {product.name}
                     </h3>
 
                     <div className="border-b border-[#025043]/50 mb-3"></div>
 
                     <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      30,000 s.p
+                      {product.final_price} s.p
                     </p>
 
                     <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
                       <div className="flex items-center gap-1 text-sm">
-                        <span>☆ ☆ ☆ ☆ ☆</span>
+                        <span>{renderStars(product.rating)}</span>
+                        <span className="text-xs text-gray-500">
+                          ({product.reviews_count})
+                        </span>
                         <button className="text-sm hover:underline">
                           view more
                         </button>

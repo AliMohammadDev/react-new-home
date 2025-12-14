@@ -21,3 +21,25 @@ export const useGetProductsByLimit = (limit = 10) => {
     },
   });
 };
+
+export const useGetProductsByCategory = (categoryName) => {
+  return useQuery({
+    queryKey: ['products', categoryName],
+    queryFn: async () => {
+      const res = await axios.get(`products-category/${categoryName}`);
+      return res.data.data;
+    },
+    enabled: !!categoryName,
+  });
+};
+
+
+export const useGetAllProducts = () => {
+  return useQuery({
+    queryKey: ['products', 'all'],
+    queryFn: async () => {
+      const res = await axios.get('products');
+      return res.data.data;
+    },
+  });
+};

@@ -13,9 +13,14 @@ import { useEffect } from 'react';
 import cartImage from '../assets/images/addToCart.svg';
 import { useGetProfile } from '../api/auth.jsx';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
+import { useGetCategories } from '../api/categories.jsx';
 
 const Navbar = () => {
+
+
+  const { data: categories = [] } = useGetCategories();
   const { data: profile } = useGetProfile();
+
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,15 +28,15 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isProductsActive = location.pathname.startsWith('/products');
-  const productCategories = [
-    'Cookware',
-    'Tableware',
-    'Kitchenware',
-    'Bakeware',
-    'Drinkware',
-    'Aoppliances',
-    'Forhome',
-  ];
+  // const categories = [
+  //   'Cookware',
+  //   'Tableware',
+  //   'Kitchenware',
+  //   'Bakeware',
+  //   'Drinkware',
+  //   'Aoppliances',
+  //   'Forhome',
+  // ];
 
   useEffect(() => {
     setIsCartOpen(false);
@@ -120,17 +125,17 @@ const Navbar = () => {
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
             }}
           >
-            {productCategories.map((item) => (
+            {categories.map((category) => (
               <NavLink
-                key={item}
-                to={`/products/${item.toLowerCase()}`}
+                key={category.id}
+                to={`/products/${category.name.toLowerCase()}`}
                 className={({ isActive }) =>
                   `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${isActive ? 'text-[#E2995E]' : 'text-white'
                   }`
                 }
                 onClick={() => setIsProductMenuOpen(false)}
               >
-                {item}
+                {category.name}
                 <ChevronRightIcon className="text-primary duration-150 sm:scale-100" />
               </NavLink>
             ))}
