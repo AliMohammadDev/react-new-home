@@ -12,23 +12,7 @@ function Wishlists() {
             finalPrice: 18,
             date: 'December 5, 2019',
         },
-        {
-            id: 2,
-            name: 'Classy Shirt',
-            image:
-                'https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png',
-            price: 16,
-            date: 'December 6, 2019',
-        },
-        {
-            id: 3,
-            name: 'Beanie',
-            image:
-                'https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png',
-            price: 20,
-            finalPrice: 18,
-            date: 'December 6, 2019',
-        },
+
     ];
 
     return (

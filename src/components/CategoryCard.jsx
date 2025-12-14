@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ProductCard = ({ title, description, image }) => {
+const CategoryCard = ({ title, description, image }) => {
   const [hover, setHover] = useState(false);
 
   return (
@@ -23,4 +23,4 @@ const ProductCard = ({ title, description, image }) => {
   );
 };
 
-export default ProductCard;
+export default CategoryCard;

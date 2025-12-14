@@ -3,18 +3,12 @@ import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
 import ArrowRightLong from '../../assets/icons/ArrowRightLong.jsx';
+import { Link } from 'react-router-dom';
 
-function MostProduct() {
+function MostProduct({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const products = [
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362011/product21_scks0d.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362011/product22_ozcq5j.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362012/product23_dyuq2s.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362027/product24_wtqy1b.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362027/product25_znewrk.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765362028/product26_dtvezt.png",
-  ];
+
 
   const CustomArrow = ({ onClick, direction }) => (
     <button
@@ -54,7 +48,9 @@ function MostProduct() {
     ],
   };
 
-  const progress = ((currentSlide + 1) / 4) * 100;
+  // const progress = ((currentSlide + 1) / 4) * 100;
+  const progress = products.length > 0 ? ((currentSlide + 1) / products.length) * 100 : 0;
+
 
   return (
     <section className="bg-[#EDEAE2] md:px-20 py-10 md:py-5">
@@ -78,33 +74,35 @@ function MostProduct() {
             </p>
           </div>
 
-          <div className="mt-40 md:-mt-3 lg:mt-16 xl:mt-[127px] 2xl:mt-[148px] ml-4 md:ml-0 text-sm font-[Expo-arabic] cursor-pointer flex items-center gap-1">
-            click to show products <ArrowRightLong />
-          </div>
+          <Link to={'/products'} >
+            <div className="ml-4 md:ml-0 text-sm font-[Expo-arabic] cursor-pointer flex items-center gap-1">
+              click to show products <ArrowRightLong />
+            </div>
+          </Link>
         </div>
 
         <div className="relative w-full">
           <Slider {...settings}>
-            {products.map((img, i) => (
+            {products.map((product, i) => (
               <div key={i} className="md:px-1">
                 <div
                   key={i}
                   className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
                 >
                   <img
-                    src={img}
+                    src={product.image}
                     alt="stainless steel cookware"
                     className="w-full object-cover"
                   />
 
                   <div className="mt-5 ml-3 md:ml-3">
                     <h3 className="text-black text-[16px] font-[Qanduchia] mb-2">
-                      Crafted Mug
+                      {product.name}
                     </h3>
-                    <p className="text-black text-sm mb-4 font-[Expo-arabic]">
-                      Think about a gift? see our collection
+                    <p className="text-black text-sm mb-4 font-[Expo-arabic] line-clamp-3">
+                      {product.body}
                     </p>
-                    <span>50.000 s.p/set</span>
+                    <span> {product.final_price} s.p</span>
                   </div>
                 </div>
               </div>

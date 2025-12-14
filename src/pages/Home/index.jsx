@@ -1,14 +1,22 @@
-import ProductCard from '../../components/ProductCard ';
+import CategoryCard from '../../components/CategoryCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProductSlider1 from '../../components/Products/ProductSlider1';
 import ProductSlider2 from '../../components/Products/ProductSlider2';
 import MostProduct from '../../components/Products/MostProduct';
 import AllProductSlider3 from '../../components/Products/AllProductSlider3';
-
 import Header from '../../components/Header';
+import { useGetCategories } from '../../api/categories';
+import AboutSection from '../../components/AboutSection';
+import { useGetProductsByLimit, useGetSlidersProducts } from '../../api/products';
 
 const Home = () => {
+
+  const { data: categories = [] } = useGetCategories();
+
+  const { data: sliderProducts = [] } = useGetSlidersProducts();
+  const { data: productsByLimit = [] } = useGetProductsByLimit();
+
   return (
     <>
       <Header />
@@ -35,7 +43,6 @@ const Home = () => {
 
         {/* All Categories */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20 p-2 sm:p-2 md:p-4">
-          {/* products */}
           <div className="text-center text-white transition-shadow duration-300">
             <span className="text-[100px] sm:text-[100px] md:text-[100px] lg:text-[140px]  font-[Qanduchia]">
               Our
@@ -44,127 +51,25 @@ const Home = () => {
               Product
             </p>
           </div>
-          <ProductCard
-            title="Drinkware"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/drinkWare_bd59t8.png"
-            description="Discover the perfect balance of performance, durability, and design with our premium cookware collection. Each piece is crafted to deliver even heat distribution, reliable cooking results, and long-lasting quality. From everyday meals to gourmet creations, our cookware helps you cook with confidence and style. Designed for comfort, efficiency, and versatility, it’s the ideal companion for every modern kitchen."
-          />
 
-          <ProductCard
-            title="TableWare"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/tableWare_v5v14i.png"
-            description="Elevate every dining experience with our beautifully crafted
-            tableware collection. Designed for both everyday meals and special
-            occasions, each piece combines timeless style with lasting quality.
-            Made from premium materials and refined finishes, our tableware
-            enhances any table setting — adding elegance, balance, and charm to
-            your dining moments."
-          />
-
-          <ProductCard
-            title="CookWare"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358899/cookWare_jr8zzy.png"
-            description="Discover the art of cooking with our premium cookware collection.
-            Thoughtfully crafted for durability, performance, and style, each
-            piece ensures even heat distribution and precise results every time.
-            Designed for modern kitchens, our cookware combines high-quality
-            materials with ergonomic design — helping you create meals that look
-            as good as they taste."
-          />
-
-          <ProductCard
-            title="Bakeware"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/bakeWare_kbtsga.png"
-            description=" Discover the art of cooking with our premium cookware collection.
-            Thoughtfully crafted for durability, performance, and style, each
-            piece ensures even heat distribution and precise results every time.
-            Designed for modern kitchens, our cookware combines high-quality
-            materials with ergonomic design — helping you create meals that look
-            as good as they taste."
-          />
-          <ProductCard
-            title="Aoppliances"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/bakeWare_kbtsga.png"
-            description=" Durable and versatile bakeware designed for even baking and easy
-            release. Perfect for cakes, cookies, muffins, and more."
-          />
-          <ProductCard
-            title="Kitchenware"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358898/kitchenWare_vy9qnp.png"
-            description="Essential kitchenware for cooking, prep, and serving—durable,
-            practical, and designed for everyday use."
-          />
-          <ProductCard
-            title="For Home"
-            image="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765358899/forHome_qzgnuf.png"
-            description="  Discover the art of cooking with our premium cookware collection.
-            Thoughtfully crafted for durability, performance, and style, each
-            piece ensures even heat distribution and precise results every time.
-            Designed for modern kitchens, our cookware combines high-quality
-            materials with ergonomic design — helping you create meals that look
-            as good as they taste."
-          />
+          {categories.map((category) => (
+            <CategoryCard
+              key={category.id}
+              title={category.name}
+              image={category.image}
+              description={category.description}
+            />
+          ))}
         </div>
 
         {/* About Us Section */}
-        <section className="bg-[#EDEAE2] text-[#025043] mt-25 py-24  md:px-20">
-          <span className="font-[Expo-book] text-black text-[40px] md:text-[64px] block mb-6 pl-4 md:pl-0">
-            Intro to the company
-          </span>
+        <AboutSection />
 
-          <p className="text-black text-[14px] md:text-[24px] mb-4 pl-4 md:pl-0">
-            Almanzel-Alhadith is a company specializes in providing high-quality
-            kitchen tools and hospitality equipment for homes, restaurants, and
-            hotels.
-            <span className="text-black text-[14px] md:text-[24px] block mb-4">
-              Our core product range includes:
-            </span>
-          </p>
-
-          <ul className="list-none font-[Expo-light] text-black space-y-2 pl-10 md:pl-20">
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              Elegant glassware, cups, mugs, jars, and all tabletop essentials.
-            </li>
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              Decorative homeware, gifts, crystal items, and ornaments. Premium
-            </li>
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              White porcelain and embellished or gold-accented porcelain for
-              fine dining.
-            </li>
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              Durable stainless steel and high-grade metal kitchen tools.
-            </li>
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              Specialized equipment for meat, dairy, and cold storage. Quality
-            </li>
-            <li className="relative before:content-[''] before:inline-block before:w-1 before:h-1 before:bg-black before:mr-3 before:align-middle">
-              Plastic kitchenware, including chopping boards and fridge
-              containers.
-            </li>
-          </ul>
-
-          <div className="flex flex-col md:flex-row items-center text-center md:text-left">
-            <span className="font-[Asteroid] text-5xl md:text-7xl text-black relative -bottom-5 md:bottom-0 sm:-top-4 -left-2 md:-left-12">
-              We
-            </span>
-            <p className="font-[Expo-book] text-sm md:text-lg text-black max-w-2xl relative md:-left-15 top-8">
-              combine functionality with refined aesthetics to meet the needs of
-              both domestic and professional kitchens.
-            </p>
-          </div>
-        </section>
-        {/* Essential to prep 2 */}
-        <ProductSlider1 />
-
-        {/* Essential to prep 2 */}
-        <ProductSlider2 />
-
-        {/* Most Popular */}
-        <MostProduct />
-
-        {/* All Product */}
-        <AllProductSlider3 />
+        {/* Sliders & Products */}
+        <ProductSlider1 products={sliderProducts.new} />
+        <ProductSlider2 products={sliderProducts.discounted} />
+        <MostProduct products={sliderProducts.featured} />
+        <AllProductSlider3 products={productsByLimit} />
 
         {/* Before Footer */}
         <div className="flex flex-col md:flex-row items-center justify-around py-5 px-1 md:px-0">

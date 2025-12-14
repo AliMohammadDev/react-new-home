@@ -5,14 +5,10 @@ import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
 
 import Group from '../../assets/images/group.svg';
 
-function ProductSlider2() {
+function ProductSlider2({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const products = [
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product11_iziqjk.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product12_cyevgx.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765361097/product13_zm7evn.png",
-  ];
+
 
   const CustomArrow = ({ onClick, direction }) => (
     <button
@@ -48,7 +44,12 @@ function ProductSlider2() {
     ],
   };
 
-  const progress = ((currentSlide + 1) / 4) * 100;
+  // const progress = ((currentSlide + 1) / 4) * 100;
+  const progress = products.length > 0 ? ((currentSlide + 1) / products.length) * 100 : 0;
+  const renderStars = (rating = 0) => {
+    const fullStars = Math.round(rating);
+    return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+  };
 
   return (
     <section className="bg-[#EDEAE2] text-[#025043] md:px-20 py-10 md:py-5">
@@ -68,29 +69,33 @@ function ProductSlider2() {
         {/* Slider */}
         <div className="relative w-full md:mt-1 0">
           <Slider {...settings}>
-            {products.map((img, i) => (
+            {products.map((product, i) => (
               <div key={i} className="md:px-1">
                 <div
                   key={i}
                   className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
                 >
-                  <img src={img} alt="stainless steel cookware" className="" />
+                  <img src={product.image} alt="stainless steel cookware" className="" />
 
                   <div className="p-4">
-                    <h3 className="text-[#025043] text-[16px] font-medium mb-2">
-                      stainless steel cookware
+                    <h3 className="text-[#025043] text-[16px] font-medium mb-2" >
+                      {product.name}
                     </h3>
+
 
                     <div className="border-b border-[#025043]/50 mb-3"></div>
 
                     <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      30,000 s.p
+                      {product.final_price} s.p
                     </p>
 
                     <div className="flex items-center justify-between md:flex-col  lg:flex-row  text-[#025043]">
                       <div className="flex items-center gap-1 text-sm">
-                        <span>☆ ☆ ☆ ☆ ☆</span>
-                        <button className="text-sm hover:underline">
+                        <span>{renderStars(product.rating)}</span>
+                        <span className="text-xs text-gray-500">
+                          ({product.reviews_count})
+                        </span>
+                        <button className="text-sm hover:underline ml-2">
                           view more
                         </button>
                       </div>
@@ -114,8 +119,8 @@ function ProductSlider2() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }
 

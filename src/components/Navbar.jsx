@@ -206,19 +206,24 @@ const Navbar = () => {
                   ))}
                 </div>
               </div>
-
-              <NavLink
-                to="/cart"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                My Cart
-              </NavLink>
-              <NavLink
-                to="/wishlist"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                WishList
-              </NavLink>
+              {
+                profile && (
+                  <>
+                    <NavLink
+                      to="/cart"
+                      className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                    >
+                      My Cart
+                    </NavLink>
+                    <NavLink
+                      to="/wishlist"
+                      className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                    >
+                      WishList
+                    </NavLink>
+                  </>
+                )
+              }
               <NavLink
                 to="/contact"
                 className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
@@ -231,21 +236,20 @@ const Navbar = () => {
               >
                 About us
               </NavLink>
+              {
+                !profile && (
+                  <>
+                    <div className="w-full h-px bg-white/30 my-2"></div>
 
-              <div className="w-full h-px bg-white/30 my-2"></div>
-
-              <NavLink
-                to="/login"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                Login
-              </NavLink>
-              <NavLink
-                to="/register"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                Sign Up
-              </NavLink>
+                    <NavLink
+                      to="/login"
+                      className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                    >
+                      Login
+                    </NavLink>
+                  </>
+                )
+              }
             </div>
           </div>
         </>
@@ -360,7 +364,7 @@ const Navbar = () => {
 
             {/* My Profile */}
             <Dropdown>
-              <DropdownTrigger asChild>
+              <DropdownTrigger>
                 <button className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200">
                   <ProfileIcon />
                 </button>

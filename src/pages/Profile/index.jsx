@@ -1,4 +1,3 @@
-import defaultProfile from '../../assets/images/defaultProfile.png';
 function Profile() {
     return (
         <div className="w-full min-h-screen bg-[#025043] flex justify-center items-start py-20 md:py-32 px-6 lg:px-20 font-sans text-white">
@@ -11,21 +10,6 @@ function Profile() {
                 }}
             >
                 <h1 className="text-3xl font-[Expo-bold] text-center">Edit Profile</h1>
-
-                {/* Profile Image */}
-                <div className="flex flex-col items-center gap-4">
-                    <img
-                        src={defaultProfile}
-                        alt="Profile"
-                        className="w-28 h-28 rounded-full border-4 border-white shadow-md object-cover"
-                    />
-                    <input
-                        type="file"
-                        className="px-3 py-1.5 bg-white text-[#025043] focus:ring-2 focus:ring-white rounded-lg font-[Expo-arabic] hover:bg-gray-200 transition-all duration-200 shadow w-60"
-                    />
-
-                </div>
-
                 {/* Form Fields */}
                 <form className="flex flex-col gap-6 font-[Expo-arabic]">
 

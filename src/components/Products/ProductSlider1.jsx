@@ -2,16 +2,9 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
-function ProductSlider1() {
+function ProductSlider1({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const products = [
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360173/product1_tb5wqp.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360175/product2_c9f42c.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360179/product3_wqtz8x.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product4_gffzpk.png",
-    "https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png",
-  ];
 
 
   const CustomArrow = ({ onClick, direction }) => (
@@ -49,7 +42,13 @@ function ProductSlider1() {
     ],
   };
 
-  const progress = ((currentSlide + 1) / 5) * 100;
+  // const progress = ((currentSlide + 1) / 5) * 100;
+  const progress = products.length > 0 ? ((currentSlide + 1) / products.length) * 100 : 0;
+
+  const renderStars = (rating = 0) => {
+    const fullStars = Math.round(rating);
+    return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+  };
 
   return (
     <>
@@ -65,33 +64,39 @@ function ProductSlider1() {
         {/* Slider */}
         <div className="grid grid-cols-1 gap-10 relative">
           <Slider {...settings}>
-            {products.map((img, i) => (
+            {products.map((product, i) => (
               <div key={i} className="md:px-1">
                 <div className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img
-                    src={img}
+                    src={product.image}
                     alt="stainless steel cookware"
                     className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                   />
 
                   <div className="p-4">
                     <h3 className="text-[#025043] text-[16px] font-medium mb-2">
-                      stainless steel cookware
+                      {product.name}
                     </h3>
 
                     <div className="border-b border-[#025043]/50 mb-3"></div>
 
                     <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      30,000 s. p
+                      {product.final_price} s.p
                     </p>
 
                     <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
+
+
                       <div className="flex items-center gap-1 text-sm">
-                        <span>☆ ☆ ☆ ☆ ☆</span>
-                        <button className="text-sm hover:underline">
+                        <span>{renderStars(product.rating)}</span>
+                        <span className="text-xs text-gray-500">
+                          ({product.reviews_count})
+                        </span>
+                        <button className="text-sm hover:underline ml-2">
                           view more
                         </button>
                       </div>
+
 
                       <button className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
                         Add to cart
