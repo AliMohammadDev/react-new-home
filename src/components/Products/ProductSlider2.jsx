@@ -76,7 +76,7 @@ function ProductSlider2({ products = [] }) {
                   key={i}
                   className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
                 >
-                  <img src={product.image} alt="stainless steel cookware" className="" />
+                  <img src={product.image} alt="stainless steel cookware" className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover" />
 
                   <div className="p-4">
                     <h3 className="text-[#025043] text-[16px] font-medium mb-2" >

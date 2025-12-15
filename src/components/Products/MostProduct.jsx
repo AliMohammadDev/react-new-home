@@ -90,7 +90,7 @@ function MostProduct({ products = [] }) {
                   <img
                     src={product.image}
                     alt="stainless steel cookware"
-                    className="w-full object-cover"
+                    className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                   />
 
                   <div className="mt-5 ml-3 md:ml-3">
