@@ -71,3 +71,33 @@ export const useGetProfile = () => {
     },
   });
 };
+
+
+export const useEditProfile = (onSuccess) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data) => {
+      try {
+        const res = await axios.put('profile', data);
+        return res.data;
+      } catch (error) {
+        const message =
+          error.response?.data?.errors?.name?.[0] ||
+          error.response?.data?.errors?.email?.[0] ||
+          error.response?.data?.errors?.password?.[0] ||
+          error.response?.data?.message ||
+          'Something went wrong';
+
+        throw new Error(message);
+      }
+    },
+
+    onSuccess: (data) => {
+      if (data.user) {
+        queryClient.setQueryData(['profile'], data.user);
+      }
+      onSuccess?.(data);
+    },
+  });
+};

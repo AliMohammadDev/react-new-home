@@ -74,8 +74,8 @@ function ShowAllProducts() {
                             <div key={i} className="md:px-1">
                                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                                     <img
-                                        src={product.img}
-                                        alt="stainless steel cookware"
+                                        src={product.image}
+                                        alt={product.name}
                                         className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                                     />
                                     <button className="absolute top-0 right-0 cursor-pointer rounded-full p-1 transition">

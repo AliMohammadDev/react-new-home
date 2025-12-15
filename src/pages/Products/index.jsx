@@ -36,11 +36,16 @@ const Product = () => {
 
   return (
     <div className="bg-[#EDEAE2] min-h-screen">
-      {
-        category && (
-          <img src={category.image} alt={category.name} className="w-full" />
-        )
-      }
+      {category && (
+        <div className="w-full h-[300px] md:h-[900px] overflow-hidden">
+          <img
+            src={category.image}
+            alt={category.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
 
       <div className=" mx-auto px-6 py-10">
         <div className="flex justify-start mb-10">
