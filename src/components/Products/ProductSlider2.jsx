@@ -4,6 +4,7 @@ import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
 
 import Group from '../../assets/images/group.svg';
+import { Link } from 'react-router-dom';
 
 function ProductSlider2({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -95,9 +96,9 @@ function ProductSlider2({ products = [] }) {
                         <span className="text-xs text-gray-500">
                           ({product.reviews_count})
                         </span>
-                        <button className="text-sm hover:underline ml-2">
+                        <Link to={'/products'} className="text-sm hover:underline ml-2">
                           view more
-                        </button>
+                        </Link>
                       </div>
 
                       <button className="bg-[#025043] text-white text-sm lg:px-2 px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
@@ -111,7 +112,7 @@ function ProductSlider2({ products = [] }) {
           </Slider>
 
           <div className="mt-6 px-2 md:px-0">
-            <div className="w-full h-1 md:h-1.5 bg-gray-300 rounded-full overflow-hidden">
+            <div className="w-full h-1 md:h-1 bg-gray-300 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gray-500 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}

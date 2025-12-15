@@ -12,12 +12,15 @@ import clsx from 'clsx';
 import { useEffect } from 'react';
 import cartImage from '../assets/images/addToCart.svg';
 import { useGetProfile } from '../api/auth.jsx';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from '@heroui/react';
 import { useGetCategories } from '../api/categories.jsx';
 
 const Navbar = () => {
-
-
   const { data: categories = [] } = useGetCategories();
   const { data: profile } = useGetProfile();
 
@@ -28,15 +31,6 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isProductsActive = location.pathname.startsWith('/products');
-  // const categories = [
-  //   'Cookware',
-  //   'Tableware',
-  //   'Kitchenware',
-  //   'Bakeware',
-  //   'Drinkware',
-  //   'Aoppliances',
-  //   'Forhome',
-  // ];
 
   useEffect(() => {
     setIsCartOpen(false);
@@ -47,8 +41,10 @@ const Navbar = () => {
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (!e.target.closest('.cart-dropdown') &&
-        !e.target.closest('.cart-button')) {
+      if (
+        !e.target.closest('.cart-dropdown') &&
+        !e.target.closest('.cart-button')
+      ) {
         setIsCartOpen(false);
       }
     }
@@ -60,8 +56,12 @@ const Navbar = () => {
     /* Navbar */
     <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 lg:px-8 py-2 lg:py-4 md:py-1 z-50">
       {/* Logo */}
-      <Link to={'/'} >
-        <img src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg" alt="Logo" className="h-14 w-auto" />
+      <Link to={'/'}>
+        <img
+          src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765366635/home-logo-white_c2et5l.svg"
+          alt="Logo"
+          className="h-14 w-auto"
+        />
       </Link>
 
       {/* Desktop Nav */}
@@ -130,7 +130,8 @@ const Navbar = () => {
                 key={category.id}
                 to={`/products/${category.name.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${isActive ? 'text-[#E2995E]' : 'text-white'
+                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${
+                    isActive ? 'text-[#E2995E]' : 'text-white'
                   }`
                 }
                 onClick={() => setIsProductMenuOpen(false)}
@@ -200,61 +201,58 @@ const Navbar = () => {
                       : 'max-h-0 opacity-0'
                   )}
                 >
-                  {productCategories.map((item) => (
+                  {categories.map((category) => (
                     <NavLink
-                      key={item}
-                      to={`/products/${item.toLowerCase()}`}
+                      key={category.id}
+                      to={`/products/${category.name.toLowerCase()}`}
                       className="py-2 px-4 text-sm text-gray-200 font-[Expo-light] hover:underline underline-offset-4"
                     >
-                      {item}
+                      {category.name}
                     </NavLink>
                   ))}
                 </div>
               </div>
-              {
-                profile && (
-                  <>
-                    <NavLink
-                      to="/cart"
-                      className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-                    >
-                      My Cart
-                    </NavLink>
-                    <NavLink
-                      to="/wishlist"
-                      className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-                    >
-                      WishList
-                    </NavLink>
-                  </>
-                )
-              }
-              <NavLink
-                to="/contact"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                Contact Us
-              </NavLink>
-              <NavLink
-                to="/about"
-                className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
-              >
-                About us
-              </NavLink>
-              {
-                !profile && (
-                  <>
-                    <div className="w-full h-px bg-white/30 my-2"></div>
 
+              {profile ? (
+                <>
+                  <NavLink
+                    to="/cart"
+                    className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                  >
+                    My Cart
+                  </NavLink>
+                  <NavLink
+                    to="/wishlist"
+                    className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                  >
+                    WishList
+                  </NavLink>
+                  <NavLink
+                    to="/logout"
+                    className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                  >
+                    Logout
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/login"
+                    className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
+                  >
+                    Login
+                  </NavLink>
+
+                  {profile && (
                     <NavLink
-                      to="/login"
+                      to="/logout"
                       className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
                     >
-                      Login
+                      Logout
                     </NavLink>
-                  </>
-                )
-              }
+                  )}
+                </>
+              )}
             </div>
           </div>
         </>
@@ -266,7 +264,7 @@ const Navbar = () => {
           <button
             aria-expanded={isCartOpen}
             onClick={() => setIsCartOpen(!isCartOpen)}
-            className="bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] cart-button
+            className="cart-button bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] 
            hover:bg-[#EDEAE2] flex items-center gap-2 cursor-pointer"
           >
             Cart
@@ -288,7 +286,6 @@ const Navbar = () => {
             >
               <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
                 <div className="inline-block text-left w-full max-w-xs">
-
                   {/* Header */}
                   <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
                     <span>Product</span>
@@ -310,7 +307,6 @@ const Navbar = () => {
 
                     {/* Quantity Box */}
                     <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
-
                       {/* Remove */}
                       <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
                         Remove
@@ -331,7 +327,6 @@ const Navbar = () => {
                     </div>
                   </div>
 
-
                   {/* Divider */}
                   <div className="border-b border-white/30 my-4"></div>
 
@@ -342,26 +337,20 @@ const Navbar = () => {
                   </div>
 
                   {/* Checkout Button */}
-                  <Link to={"checkouts"}>
+                  <Link to={'checkouts'}>
                     <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
                       CHECKOUT NOW
                     </button>
                   </Link>
-
                 </div>
               </div>
-
-
             </div>
-
           )}
 
           <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
             <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
-              <div
-                className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button"
-              >
-                <Link to={'/wishlists'} >
+              <div className="bg-[#025043] p-2 rounded-full hover:bg-[#507771] transition-all duration-200 wishlist-button">
+                <Link to={'/wishlists'}>
                   <FavoriteIcon />
                 </Link>
               </div>
@@ -375,12 +364,10 @@ const Navbar = () => {
                 </button>
               </DropdownTrigger>
 
-              <DropdownMenu
-                className="bg-white text-[#025043] rounded-xl  w-40 font-[Expo-arabic] overflow-hidden"
-              >
+              <DropdownMenu className="bg-white text-[#025043] rounded-xl  w-40 font-[Expo-arabic] overflow-hidden">
                 <DropdownItem
                   onClick={() => {
-                    navigate("/profile");
+                    navigate('/profile');
                   }}
                   className="py-2 hover:bg-gray-100 cursor-pointer mr-14"
                 >
@@ -391,15 +378,11 @@ const Navbar = () => {
                     Logout
                   </Link>
                 </DropdownItem>
-
               </DropdownMenu>
             </Dropdown>
-
-
-
           </div>
         </div>
-      ) :
+      ) : (
         <div className="hidden lg:flex">
           <Link
             to="/login"
@@ -408,7 +391,7 @@ const Navbar = () => {
             Login
           </Link>
         </div>
-      }
+      )}
     </div>
   );
 };

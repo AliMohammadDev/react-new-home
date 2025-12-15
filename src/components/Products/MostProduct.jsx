@@ -110,7 +110,7 @@ function MostProduct({ products = [] }) {
           </Slider>
 
           <div className="mt-6 px-2 md:px-0">
-            <div className="w-full h-1 md:h-1.5 bg-gray-500 rounded-full overflow-hidden">
+            <div className="w-full h-1 md:h-1 bg-gray-500 rounded-full overflow-hidden">
               <div
                 className="h-full bg-black rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
