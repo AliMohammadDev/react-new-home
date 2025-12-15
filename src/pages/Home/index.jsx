@@ -8,14 +8,27 @@ import AllProductSlider3 from '../../components/Products/AllProductSlider3';
 import Header from '../../components/Header';
 import { useGetCategories } from '../../api/categories';
 import AboutSection from '../../components/AboutSection';
-import { useGetProductsByLimit, useGetSlidersProducts } from '../../api/products';
+import { useGetProductsVariantsByLimit, useGetSlidersProductsVariants } from '../../api/products';
 
 const Home = () => {
 
   const { data: categories = [] } = useGetCategories();
 
-  const { data: sliderProducts = [] } = useGetSlidersProducts();
-  const { data: productsByLimit = [] } = useGetProductsByLimit();
+  // const { data: sliderProducts = [] } = useGetSlidersProducts();
+  // const { data: productsByLimit = [] } = useGetProductsByLimit();
+
+
+  const { data: sliderProducts = [] } = useGetSlidersProductsVariants();
+  const { data: variantsByLimit = [] } = useGetProductsVariantsByLimit();
+
+  const productsByLimit = (variantsByLimit || []).map(v => ({
+    ...v.product,
+    variantId: v.id,
+    color: v.color,
+    size: v.size,
+    material: v.material,
+    stock_quantity: v.stock_quantity,
+  }));
 
   return (
     <>
@@ -66,9 +79,16 @@ const Home = () => {
         <AboutSection />
 
         {/* Sliders & Products */}
-        <ProductSlider1 products={sliderProducts.new} />
+        {/* <ProductSlider1 products={sliderProducts.new} />
         <ProductSlider2 products={sliderProducts.discounted} />
-        <MostProduct products={sliderProducts.featured} />
+        <MostProduct products={sliderProducts.featured} /> */}
+
+
+        <ProductSlider1 products={sliderProducts.new?.map(v => v.product) || []} />
+        <ProductSlider2 products={sliderProducts.discounted?.map(v => v.product) || []} />
+        <MostProduct products={sliderProducts.featured?.map(v => v.product) || []} />
+
+
         <AllProductSlider3 products={productsByLimit} />
 
         {/* Before Footer */}

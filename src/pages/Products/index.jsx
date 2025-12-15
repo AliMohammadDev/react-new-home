@@ -10,13 +10,23 @@ import {
   useDisclosure,
 } from '@heroui/react';
 import ProductFilters from './ProductFilters.jsx';
-import { useGetProductsByCategory } from '../../api/products.jsx';
+import { useGetProductsVariantsByCategory } from '../../api/products.jsx';
 
 const Product = () => {
   const { categoryId } = useParams();
-  const { data: products = [] } = useGetProductsByCategory(categoryId);
+  // const { data: products = [] } = useGetProductsByCategory(categoryId);
+  const { data: products = [] } = useGetProductsVariantsByCategory(categoryId);
+  const productsList = (products || []).map(v => ({
+    ...v.product,        // جلب كل خصائص المنتج
+    variantId: v.id,     // لو بدك تستخدم Add to Cart
+    color: v.color,
+    size: v.size,
+    material: v.material,
+    stock_quantity: v.stock_quantity,
+  }));
 
-  const category = products[0]?.category;
+  const category = products[0]?.product?.category;
+
 
   const [showFilters, setShowFilters] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -77,7 +87,7 @@ const Product = () => {
           <div
             className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
           >
-            {products.map((product) => (
+            {productsList.map((product) => (
               <div key={product.id} className="md:px-1">
                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img

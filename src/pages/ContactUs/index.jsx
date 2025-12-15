@@ -1,4 +1,40 @@
+import { useForm } from "react-hook-form";
+import { useSendMail } from "../../api/auth";
+import { addToast } from "@heroui/react";
+
 const Contact = () => {
+
+  const { register, handleSubmit, reset } = useForm();
+  const { mutate, isPending: loading } = useSendMail();
+
+  const onSubmit = (data) => {
+    mutate(data, {
+      onSuccess: () => {
+
+        addToast({
+          title: 'Contact Us',
+          description: 'Message sent successfully!',
+          color: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+
+
+        reset();
+      },
+      onError: (error) => {
+        addToast({
+          title: 'Contact Us',
+          description: error.message || 'Failed to send message. Please try again.',
+          color: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
+      },
+    });
+  };
+
+
   return (
     <div className="w-full flex flex-col md:flex-row justify-between items-start text-white px-6 lg:px-20 py-16 md:py-32 gap-10 md:gap-16 bg-[#025043] min-h-screen font-[Expo-arabic]">
       {/* Left Text Overlay */}
@@ -34,8 +70,9 @@ const Contact = () => {
           Hello, please log in to access your account.
         </p>
 
-        <form className="space-y-6 w-full">
+        <form className="space-y-6 w-full" onSubmit={handleSubmit(onSubmit)}>
           <input
+            {...register('name', { required: true })}
             type="text"
             name="name"
             required
@@ -46,6 +83,7 @@ const Contact = () => {
           />
 
           <input
+            {...register('email', { required: true })}
             type="email"
             name="email"
             required
@@ -56,6 +94,7 @@ const Contact = () => {
           />
 
           <textarea
+            {...register('message', { required: true })}
             name="message"
             required
             rows="5"
@@ -66,15 +105,22 @@ const Contact = () => {
           />
 
           <button
+            disabled={loading}
             type="submit"
-            className="w-full bg-black text-white py-2 rounded-xl hover:opacity-80 transition"
+            className={`w-full bg-black text-white py-2 rounded-xl hover:opacity-80 transition
+
+                 ${loading
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-black hover:opacity-90'}
+                `}
           >
-            SEND MESSAGE
+
+            {loading ? 'Sending...' : 'SEND MESSAGE'}
           </button>
         </form>
 
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -9,7 +9,6 @@ function MostProduct({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
 
-
   const CustomArrow = ({ onClick, direction }) => (
     <button
       onClick={onClick}
@@ -65,7 +64,6 @@ function MostProduct({ products = [] }) {
               Popular
             </span>
           </div>
-
           <div className=" md:text-xl lg:text-xl mt-4 md:mt-8 ml-5 md:ml-0">
             <p>We preserve every moment with gifts that speak from the heart</p>
             <p className="mt-2">

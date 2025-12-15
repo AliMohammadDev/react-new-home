@@ -101,3 +101,19 @@ export const useEditProfile = (onSuccess) => {
     },
   });
 };
+
+
+export const useSendMail = () => {
+  return useMutation({
+    mutationFn: async (data) => {
+      try {
+        const res = await axios.post('/contact-us', data);
+        return res.data;
+      } catch (error) {
+        throw new Error(
+          error.response?.data?.message || 'Failed to send message'
+        );
+      }
+    },
+  });
+};

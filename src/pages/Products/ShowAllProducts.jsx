@@ -10,10 +10,22 @@ import { useState } from 'react';
 import FilterIcon from '../../assets/icons/FilterIcon';
 import ProductFilters from './ProductFilters';
 import WishListIcon from '../../assets/icons/WishListIcon';
-import { useGetAllProducts } from '../../api/products';
+import { useGetAllProductsVariants } from '../../api/products';
 
 function ShowAllProducts() {
-  const { data: products = [] } = useGetAllProducts();
+  // const { data: products = [] } = useGetAllProducts();
+  const { data: products = [] } = useGetAllProductsVariants();
+
+  const variants = products || [];
+  const productsList = variants.map(v => ({
+    ...v.product,
+    variantId: v.id,
+    color: v.color,
+    size: v.size,
+    material: v.material,
+    stock_quantity: v.stock_quantity,
+  }));
+
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -70,7 +82,7 @@ function ShowAllProducts() {
           <div
             className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
           >
-            {products.map((product, i) => (
+            {productsList.map((product, i) => (
               <div key={i} className="md:px-1">
                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img
