@@ -84,8 +84,9 @@ const Home = () => {
         <MostProduct products={sliderProducts.featured} /> */}
 
 
-        <ProductSlider1 products={sliderProducts.new?.map(v => v.product) || []} />
-        <ProductSlider2 products={sliderProducts.discounted?.map(v => v.product) || []} />
+        <ProductSlider1 products={sliderProducts.new || []} />
+        <ProductSlider2 products={sliderProducts.discounted || []} />
+
         <MostProduct products={sliderProducts.featured?.map(v => v.product) || []} />
 
 

@@ -100,7 +100,7 @@ function MostProduct({ products = [] }) {
                     <p className="text-black text-sm mb-4 font-[Expo-arabic] line-clamp-3">
                       {product.body}
                     </p>
-                    <span> {product.final_price} s.p</span>
+                    <span> {product.final_price} SYP</span>
                   </div>
                 </div>
               </div>

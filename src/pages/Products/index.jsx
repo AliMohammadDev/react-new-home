@@ -8,29 +8,34 @@ import {
   DrawerHeader,
   DrawerBody,
   useDisclosure,
+  addToast,
 } from '@heroui/react';
 import ProductFilters from './ProductFilters.jsx';
 import { useGetProductsVariantsByCategory } from '../../api/products.jsx';
+import { useAddToCartItem } from '../../api/cart.jsx';
+import { useGetProfile } from '../../api/auth.jsx';
+import { useAddWishlist } from '../../api/wishlist.jsx';
 
 const Product = () => {
   const { categoryId } = useParams();
-  // const { data: products = [] } = useGetProductsByCategory(categoryId);
+  const [showFilters, setShowFilters] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isMobile, setIsMobile] = useState(false);
+
+  const { data: user } = useGetProfile();
+  const { mutate: addToCart, isLoading } = useAddToCartItem();
+  const { mutate: addWishlist } = useAddWishlist();
+
   const { data: products = [] } = useGetProductsVariantsByCategory(categoryId);
   const productsList = (products || []).map(v => ({
-    ...v.product,        // جلب كل خصائص المنتج
-    variantId: v.id,     // لو بدك تستخدم Add to Cart
+    ...v.product,
+    variantId: v.id,
     color: v.color,
     size: v.size,
     material: v.material,
     stock_quantity: v.stock_quantity,
   }));
-
   const category = products[0]?.product?.category;
-
-
-  const [showFilters, setShowFilters] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -38,6 +43,89 @@ const Product = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+
+  // Add to cart 
+  const handleAddCartItem = (variant) => {
+    if (!user) {
+      addToast({
+        title: 'Cart',
+        description: 'You have to login first!',
+        color: 'warning',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    addToCart(
+      {
+        product_variant_id: variant.variantId,
+        quantity: 1,
+      },
+      {
+        onSuccess: () => {
+          addToast({
+            title: 'Cart',
+            description: `${variant.product.name} added to cart successfully!`,
+            color: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+        onError: () => {
+          addToast({
+            title: 'Cart',
+            description: `Failed to add ${variant.product.name} to cart`,
+            color: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+      }
+    );
+  };
+
+
+  // Add wishlist
+  const handleAddWishlist = (variant) => {
+    if (!user) {
+      addToast({
+        title: 'Cart',
+        description: 'You have to login first!',
+        color: 'warning',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    addWishlist(
+      variant.variantId,
+      {
+        onSuccess: () => {
+          addToast({
+            title: 'Wishlist',
+            description: `${variant.product.name} added to Wishlist successfully!`,
+            color: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+        onError: () => {
+          addToast({
+            title: 'Wishlist',
+            description: `Failed to add ${variant.product.name} to cart`,
+            color: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+      }
+    );
+  };
+
+
 
   const renderStars = (rating = 0) => {
     const fullStars = Math.round(rating);
@@ -88,16 +176,20 @@ const Product = () => {
             className={`${showFilters ? 'w-3/2' : 'w-full'} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-5 transition-all duration-300`}
           >
             {productsList.map((product) => (
-              <div key={product.id} className="md:px-1">
+              <div key={product.variantId} className="md:px-1">
                 <div className="relative bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                   />
-                  <button className="absolute top-0 right-0 cursor-pointer rounded-full p-1 transition">
+                  <button
+                    onClick={() => handleAddWishlist(product)}
+                    className="absolute top-0 right-0 cursor-pointer rounded-full p-1 transition">
                     <WishListIcon />
                   </button>
+
+
 
                   <div className="p-4">
                     <h3 className="text-[#025043] text-[16px] font-medium mb-2">
@@ -107,7 +199,7 @@ const Product = () => {
                     <div className="border-b border-[#025043]/50 mb-3"></div>
 
                     <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      {product.final_price} s.p
+                      {product.final_price} SYP
                     </p>
 
                     <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
@@ -116,13 +208,18 @@ const Product = () => {
                         <span className="text-xs text-gray-500">
                           ({product.reviews_count})
                         </span>
-                        <button className="text-sm hover:underline">
+                        {/* <button className="text-sm hover:underline">
                           view more
-                        </button>
+                        </button> */}
                       </div>
 
-                      <button className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
-                        Add to cart
+
+                      <button
+                        onClick={() => handleAddCartItem(product)}
+                        disabled={isLoading}
+                        className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition disabled:opacity-50"
+                      >
+                        {isLoading ? 'Adding...' : 'Add to cart'}
                       </button>
                     </div>
                   </div>

@@ -2,13 +2,57 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
-
 import Group from '../../assets/images/group.svg';
 import { Link } from 'react-router-dom';
+import { useGetProfile } from '../../api/auth.jsx';
+import { useAddToCartItem } from '../../api/cart.jsx';
+import { addToast } from '@heroui/react';
 
 function ProductSlider2({ products = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const { data: user } = useGetProfile();
+  const { mutate: addToCart, isLoading } = useAddToCartItem();
+
+  const handleAddCartItem = (variant) => {
+    if (!user) {
+      addToast({
+        title: 'Cart',
+        description: 'You have to login first!',
+        color: 'warning',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    addToCart(
+      {
+        product_variant_id: variant.id,
+        quantity: 1,
+      },
+      {
+        onSuccess: () => {
+          addToast({
+            title: 'Cart',
+            description: `${variant.product.name} added to cart successfully!`,
+            color: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+        onError: () => {
+          addToast({
+            title: 'Cart',
+            description: `Failed to add ${variant.product.name} to cart`,
+            color: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+      }
+    );
+  };
 
 
   const CustomArrow = ({ onClick, direction }) => (
@@ -45,7 +89,6 @@ function ProductSlider2({ products = [] }) {
     ],
   };
 
-  // const progress = ((currentSlide + 1) / 4) * 100;
   const progress = products.length > 0 ? ((currentSlide + 1) / products.length) * 100 : 0;
   const renderStars = (rating = 0) => {
     const fullStars = Math.round(rating);
@@ -70,45 +113,51 @@ function ProductSlider2({ products = [] }) {
         {/* Slider */}
         <div className="relative w-full md:mt-1 0">
           <Slider {...settings}>
-            {products.map((product, i) => (
-              <div key={i} className="md:px-1">
-                <div
-                  key={i}
-                  className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
-                >
-                  <img src={product.image} alt="stainless steel cookware" className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover" />
+            {products.map((variant) => {
+              const product = variant.product;
+              return (
+                <div key={variant.id} className="md:px-1">
+                  <div
+                    className="bg-[#EDEAE2] rounded-xl overflow-hidden border border-[#D8D5CD]"
+                  >
+                    <img src={product.image} alt="stainless steel cookware" className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover" />
 
-                  <div className="p-4">
-                    <h3 className="text-[#025043] text-[16px] font-medium mb-2" >
-                      {product.name}
-                    </h3>
+                    <div className="p-4">
+                      <h3 className="text-[#025043] text-[16px] font-medium mb-2" >
+                        {product.name}
+                      </h3>
 
 
-                    <div className="border-b border-[#025043]/50 mb-3"></div>
+                      <div className="border-b border-[#025043]/50 mb-3"></div>
 
-                    <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      {product.final_price} s.p
-                    </p>
+                      <p className="text-[#025043] text-[18px] font-semibold mb-4">
+                        {product.final_price} SYP
+                      </p>
 
-                    <div className="flex items-center justify-between md:flex-col  lg:flex-row  text-[#025043]">
-                      <div className="flex items-center gap-1 text-sm">
-                        <span>{renderStars(product.rating)}</span>
-                        <span className="text-xs text-gray-500">
-                          ({product.reviews_count})
-                        </span>
-                        <Link to={'/products'} className="text-sm hover:underline ml-2">
-                          view more
-                        </Link>
+                      <div className="flex items-center justify-between md:flex-col  lg:flex-row  text-[#025043]">
+                        <div className="flex items-center gap-1 text-sm">
+                          <span>{renderStars(product.rating)}</span>
+                          <span className="text-xs text-gray-500">
+                            ({product.reviews_count})
+                          </span>
+                          <Link to={'/products'} className="text-sm hover:underline ml-2">
+                            view more
+                          </Link>
+                        </div>
+
+                        <button
+                          onClick={() => handleAddCartItem(variant)}
+                          disabled={isLoading}
+                          className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition disabled:opacity-50"
+                        >
+                          {isLoading ? 'Adding...' : 'Add to cart'}
+                        </button>
                       </div>
-
-                      <button className="bg-[#025043] text-white text-sm lg:px-2 px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
-                        Add to cart
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </Slider>
 
           <div className="mt-6 px-2 md:px-0">

@@ -19,11 +19,12 @@ import {
   DropdownTrigger,
 } from '@heroui/react';
 import { useGetCategories } from '../api/categories.jsx';
+import { useDecreaseItem, useGetAllCartItems, useIncreaseItem, useRemoveFromCartItem } from '../api/cart.jsx';
 
 const Navbar = () => {
   const { data: categories = [] } = useGetCategories();
   const { data: profile } = useGetProfile();
-
+  const { data: cartData = { data: [], cart_total: 0 } } = useGetAllCartItems();
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,18 +40,12 @@ const Navbar = () => {
     setIsCategoryMenuOpen(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (
-        !e.target.closest('.cart-dropdown') &&
-        !e.target.closest('.cart-button')
-      ) {
-        setIsCartOpen(false);
-      }
-    }
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+
+
+
+  const { mutate: increaseItem } = useIncreaseItem();
+  const { mutate: decreaseItem } = useDecreaseItem();
+  const { mutate: removeItem } = useRemoveFromCartItem();
 
   return (
     /* Navbar */
@@ -130,8 +125,7 @@ const Navbar = () => {
                 key={category.id}
                 to={`/products/${category.name.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${
-                    isActive ? 'text-[#E2995E]' : 'text-white'
+                  `flex items-center gap-2 justify-center px-4 py-3 rounded-xl transition hover:underline underline-offset-4 ${isActive ? 'text-[#E2995E]' : 'text-white'
                   }`
                 }
                 onClick={() => setIsProductMenuOpen(false)}
@@ -260,92 +254,116 @@ const Navbar = () => {
 
       {/* Cart & Profile */}
       {profile ? (
-        <div className="hidden lg:flex relative gap-24">
+
+
+        <div className="hidden lg:flex relative gap-24"  >
           <button
             aria-expanded={isCartOpen}
-            onClick={() => setIsCartOpen(!isCartOpen)}
-            className="cart-button bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] 
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsCartOpen(prev => !prev);
+            }}
+
+            className=" bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] 
            hover:bg-[#EDEAE2] flex items-center gap-2 cursor-pointer"
           >
             Cart
             <CartIcon />
           </button>
 
-          {isCartOpen && (
-            <div
-              className={clsx(
-                'cart-dropdown absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
-                'shadow-lg w-90 py-6 z-50 rounded-2xl',
-                'transition-all duration-300 ease-in-out origin-top'
-              )}
-              style={{
-                backgroundImage: `url(${cartImage})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-              }}
-            >
-              <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
-                <div className="inline-block text-left w-full max-w-xs">
-                  {/* Header */}
-                  <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
-                    <span>Product</span>
-                    <span>Price</span>
-                    <span>QTY</span>
-                  </div>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={clsx(
+              ' absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
+              'shadow-lg w-90 py-6 z-50 rounded-2xl',
+              'transition-all duration-300 ease-in-out origin-top',
+              isCartOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-90 invisible'
 
-                  {/* PRODUCT 1 */}
-                  <div className="grid grid-cols-3 gap-4 mb-3 items-center">
-                    {/* Image */}
-                    <img
-                      src="https://res.cloudinary.com/dzvrf9xe3/image/upload/v1765360178/product5_dtuw99.png"
-                      alt="product"
-                      className="object-cover rounded w-16 h-16"
-                    />
-
-                    {/* Price */}
-                    <span className="font-medium">$5000.00 sp</span>
-
-                    {/* Quantity Box */}
-                    <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
-                      {/* Remove */}
-                      <button className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
-                        Remove
-                      </button>
-
-                      {/* + */}
-                      <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
-                        <PlusIcon />
-                      </button>
-
-                      {/* number */}
-                      <span className="px-4">{1}</span>
-
-                      {/* - */}
-                      <button className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer -ml-1">
-                        <MinusIcon />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="border-b border-white/30 my-4"></div>
-
-                  {/* Total */}
-                  <div className="flex flex-col items-center">
-                    <span className="font-semibold">TOTAL</span>
-                    <span className="font-bold text-lg">$8000.00 sp</span>
-                  </div>
-
-                  {/* Checkout Button */}
-                  <Link to={'checkouts'}>
-                    <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
-                      CHECKOUT NOW
-                    </button>
-                  </Link>
+            )}
+            style={{
+              backgroundImage: `url(${cartImage})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
+            <div className="text-center text-white text-sm w-full px-4 pt-15 pb-4">
+              <div className="inline-block text-left w-full max-w-xs h-[300px] overflow-y-auto">
+                {/* Header */}
+                <div className="grid grid-cols-3 gap-2 font-semibold border-b border-white/30 pb-2 mb-3">
+                  <span>Product</span>
+                  <span>Price</span>
+                  <span>QTY</span>
                 </div>
+
+                {/* Check if cart is empty */}
+                {cartData.data.length === 0 ? (
+                  <div className="text-center text-white py-8 font-medium">
+                    Your cart is empty.
+                  </div>
+                ) : (
+                  <>
+                    {cartData.data.map((item) => (
+                      <div key={item.id} className="grid grid-cols-3 gap-4 mb-3 items-center">
+                        {/* Image */}
+                        <img
+                          src={item.product_variant.image}
+                          alt={item.product_variant.name}
+                          className="object-cover rounded w-16 h-16"
+                        />
+
+                        {/* Price */}
+                        <span className="font-medium">{item.total_price} SYP</span>
+
+                        {/* Quantity Box */}
+                        <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
+                          {/* Remove */}
+                          <button
+                            onClick={() => removeItem(item.id)}
+                            className="absolute -top-6 left-0 text-white text-xs underline hover:text-red-400">
+                            Remove
+                          </button>
+
+                          {/* + */}
+                          <button
+                            onClick={() => increaseItem(item.id)}
+                            className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
+                            <PlusIcon />
+                          </button>
+
+                          {/* number */}
+                          <span className="px-4">{item.quantity}</span>
+
+                          {/* - */}
+                          <button
+                            onClick={() => decreaseItem(item.id)}
+                            className="p-1 bg-[#025043] text-white rounded-xl cursor-pointer ">
+                            <MinusIcon />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Divider */}
+                    <div className="border-b border-white/30 my-4"></div>
+
+                    {/* Total */}
+                    <div className="flex flex-col items-center">
+                      <span className="font-semibold">TOTAL</span>
+                      <span className="font-bold text-lg">{cartData.cart_total} SYP</span>
+                    </div>
+
+                    {/* Checkout Button */}
+                    <Link to={'checkouts'}>
+                      <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
+                        CHECKOUT NOW
+                      </button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
-          )}
+
+          </div>
 
           <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
             <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
@@ -382,6 +400,7 @@ const Navbar = () => {
             </Dropdown>
           </div>
         </div>
+
       ) : (
         <div className="hidden lg:flex">
           <Link
@@ -391,8 +410,9 @@ const Navbar = () => {
             Login
           </Link>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

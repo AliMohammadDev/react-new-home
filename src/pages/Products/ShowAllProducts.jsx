@@ -1,4 +1,5 @@
 import {
+  addToast,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -11,6 +12,8 @@ import FilterIcon from '../../assets/icons/FilterIcon';
 import ProductFilters from './ProductFilters';
 import WishListIcon from '../../assets/icons/WishListIcon';
 import { useGetAllProductsVariants } from '../../api/products';
+import { useAddToCartItem } from '../../api/cart';
+import { useGetProfile } from '../../api/auth';
 
 function ShowAllProducts() {
   // const { data: products = [] } = useGetAllProducts();
@@ -25,6 +28,51 @@ function ShowAllProducts() {
     material: v.material,
     stock_quantity: v.stock_quantity,
   }));
+
+  const { data: user } = useGetProfile();
+
+  const { mutate: addToCart, isLoading } = useAddToCartItem();
+
+  const handleAddCartItem = (variant) => {
+    if (!user) {
+      addToast({
+        title: 'Cart',
+        description: 'You have to login first!',
+        color: 'warning',
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    addToCart(
+      {
+        product_variant_id: variant.variantId,
+        quantity: 1,
+      },
+      {
+        onSuccess: () => {
+          addToast({
+            title: 'Cart',
+            description: `${variant.product.name} added to cart successfully!`,
+            color: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+        onError: () => {
+          addToast({
+            title: 'Cart',
+            description: `Failed to add ${variant.product.name} to cart`,
+            color: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+        },
+      }
+    );
+  };
+
 
 
   const [showFilters, setShowFilters] = useState(false);
@@ -102,7 +150,7 @@ function ShowAllProducts() {
                     <div className="border-b border-[#025043]/50 mb-3"></div>
 
                     <p className="text-[#025043] text-[18px] font-semibold mb-4">
-                      {product.final_price} s.p
+                      {product.final_price} SYP
                     </p>
 
                     <div className="flex items-center justify-between md:flex-col lg:flex-row text-[#025043]">
@@ -113,8 +161,12 @@ function ShowAllProducts() {
                         </span>
                       </div>
 
-                      <button className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition">
-                        Add to cart
+                      <button
+                        onClick={() => handleAddCartItem(product)}
+                        disabled={isLoading}
+                        className="bg-[#025043] text-white text-sm px-4 py-1.5 rounded-full hover:bg-[#01382f] transition disabled:opacity-50"
+                      >
+                        {isLoading ? 'Adding...' : 'Add to cart'}
                       </button>
                     </div>
                   </div>
