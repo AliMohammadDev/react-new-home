@@ -13,6 +13,7 @@ import Wishlists from '../pages/Wishlists';
 import ShowAllProducts from '../pages/Products/ShowAllProducts';
 import ErrorFallback from '../pages/ErrorFallback';
 import Logout from '../pages/Logout';
+import Carts from '../pages/Carts';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'wishlists',
         element: <Wishlists />,
+      },
+      {
+        path: 'carts',
+        element: <Carts />,
       },
       {
         path: 'profile',

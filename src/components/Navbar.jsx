@@ -22,6 +22,7 @@ import { useGetCategories } from '../api/categories.jsx';
 import { useDecreaseItem, useGetAllCartItems, useIncreaseItem, useRemoveFromCartItem } from '../api/cart.jsx';
 
 const Navbar = () => {
+
   const { data: categories = [] } = useGetCategories();
   const { data: profile } = useGetProfile();
   const { data: cartData = { data: [], cart_total: 0 } } = useGetAllCartItems();
@@ -41,11 +42,11 @@ const Navbar = () => {
   }, [location.pathname]);
 
 
-
-
   const { mutate: increaseItem } = useIncreaseItem();
   const { mutate: decreaseItem } = useDecreaseItem();
   const { mutate: removeItem } = useRemoveFromCartItem();
+
+
 
   return (
     /* Navbar */
@@ -210,7 +211,7 @@ const Navbar = () => {
               {profile ? (
                 <>
                   <NavLink
-                    to="/cart"
+                    to="/carts"
                     className="block px-4 py-2 hover:bg-[#9f9f9f9f] hover:rounded transition-colors"
                   >
                     My Cart
@@ -254,15 +255,13 @@ const Navbar = () => {
 
       {/* Cart & Profile */}
       {profile ? (
+        <div
+          onClick={() => setIsCartOpen(!isCartOpen)}
+          className="hidden lg:flex relative gap-24"  >
 
-
-        <div className="hidden lg:flex relative gap-24"  >
           <button
             aria-expanded={isCartOpen}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsCartOpen(prev => !prev);
-            }}
+            onClick={() => setIsCartOpen(!isCartOpen)}
 
             className=" bg-[#EDEAE2] text-[#025043] px-4 py-2 rounded-3xl font-[Expo-arabic] 
            hover:bg-[#EDEAE2] flex items-center gap-2 cursor-pointer"
@@ -272,7 +271,6 @@ const Navbar = () => {
           </button>
 
           <div
-            onClick={(e) => e.stopPropagation()}
             className={clsx(
               ' absolute top-full font-[Expo-arabic] right-43 text-center -mt-10',
               'shadow-lg w-90 py-6 z-50 rounded-2xl',
@@ -315,7 +313,7 @@ const Navbar = () => {
                         <span className="font-medium">{item.total_price} SYP</span>
 
                         {/* Quantity Box */}
-                        <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2 py-1">
+                        <div className="relative flex items-center border rounded-2xl bg-white text-[#025043] px-2  py-1">
                           {/* Remove */}
                           <button
                             onClick={() => removeItem(item.id)}
@@ -354,7 +352,9 @@ const Navbar = () => {
 
                     {/* Checkout Button */}
                     <Link to={'checkouts'}>
-                      <button className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
+                      <button
+                        onClick={() => setIsCartOpen(false)}
+                        className="text-[#025043] border cursor-pointer rounded-2xl bg-white font-[Expo-arabic] py-2 mt-4 w-full mx-auto flex justify-center">
                         CHECKOUT NOW
                       </button>
                     </Link>
@@ -364,6 +364,7 @@ const Navbar = () => {
             </div>
 
           </div>
+
 
           <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer">
             <div className="text-[#025043] font-[Expo-bold] flex cursor-pointer relative">
@@ -390,6 +391,16 @@ const Navbar = () => {
                   className="py-2 hover:bg-gray-100 cursor-pointer mr-14"
                 >
                   My Profile
+                </DropdownItem>
+
+                <DropdownItem
+                  onClick={() => {
+                    setIsCartOpen(false);
+                    navigate('/carts');
+                  }}
+                  className="py-2 hover:bg-gray-100 cursor-pointer mr-14"
+                >
+                  My cart
                 </DropdownItem>
                 <DropdownItem className="py-2 cursor-pointer">
                   <Link to="/logout" className="flex items-center">

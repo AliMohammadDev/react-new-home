@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Slider from 'react-slick';
 import ChevronRightIcon from '../../assets/icons/ChevronRightIcon.jsx';
 import ChevronLeftIcon from '../../assets/icons/ChevronLeftIcon.jsx';
-import Group from '../../assets/images/group.svg';
+import Group from '../../assets/images/group.png';
 import { Link } from 'react-router-dom';
 import { useGetProfile } from '../../api/auth.jsx';
 import { useAddToCartItem } from '../../api/cart.jsx';
